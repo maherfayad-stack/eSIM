@@ -1,0 +1,118 @@
+.amount-sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+
+.amount-sheet__frame {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.amount-sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.amount-sheet__panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 28px 28px 0 0;
+  background: var(--background-base-default);
+  box-shadow: var(--elevation-floating);
+  padding-top: var(--space);
+  animation: amount-sheet-in 0.3s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+@keyframes amount-sheet-in {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.amount-sheet__handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: var(--space);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.amount-sheet__grabber {
+  width: 32px;
+  height: 4px;
+  border-radius: var(--rounded-full);
+  background: var(--text-base-subtext);
+  opacity: 0.4;
+}
+
+.amount-sheet__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 var(--space);
+}
+
+.amount-sheet__close {
+  position: absolute;
+  left: var(--space);
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-link-default);
+  cursor: pointer;
+}
+
+.amount-sheet__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-subtitle-size);
+  font-weight: var(--type-subtitle-weight);
+  line-height: var(--type-subtitle-lh);
+  color: var(--text-base-default);
+  text-align: center;
+}
+
+.amount-sheet__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space) 0;
+}
+
+.amount-sheet__chips {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.amount-sheet__chip {
+  flex: 1;
+  justify-content: center;
+}
+
+.amount-sheet__footer {
+  padding: var(--space) var(--space) var(--space-lg);
+}
+
+.amount-sheet__footer .btn {
+  width: 100%;
+}

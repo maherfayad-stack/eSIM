@@ -1,0 +1,50 @@
+import { BottomSheet, SegmentedControl, ListItem } from 'design-system'
+import SectionTitle from './SectionTitle'
+import './SettingsSheet.css'
+
+export default function SettingsSheet({ open, onClose, isDark, onThemeChange, screens, active, onJumpTo }) {
+  return (
+    <BottomSheet
+      className="settings-sheet"
+      open={open}
+      size="medium"
+      platform="ios"
+      title="Demo settings"
+      subtitle="Two-finger tap or right-click to open"
+      onClose={onClose}
+    >
+      <div className="settings-sheet__content">
+        <div className="settings-sheet__section">
+          <SectionTitle title="Appearance" size="compact" />
+          <SegmentedControl
+            items={['Light', 'Dark']}
+            value={isDark ? 1 : 0}
+            onChange={(index) => onThemeChange(index === 1)}
+          />
+        </div>
+
+        <div className="settings-sheet__section">
+          <SectionTitle title="Screens" size="compact" />
+          <div className="settings-sheet__list" role="list">
+            {screens.map((screen) => (
+              <ListItem
+                key={screen.key}
+                type="radio"
+                name="settings-screen"
+                selected={screen.key === active}
+                label={screen.label}
+                onChange={() => {
+                  onJumpTo(screen.key)
+                  onClose()
+                }}
+                onClick={() => {
+                  if (screen.key === active) onClose()
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </BottomSheet>
+  )
+}
