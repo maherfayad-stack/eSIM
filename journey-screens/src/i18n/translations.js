@@ -103,7 +103,7 @@ export const translations = {
       forAllTravellers: 'For all travellers',
       reserveNow: 'Reserve now',
       purchasedAddons: 'Purchased Add-ons',
-      esimSubtext: 'you still need to activate to be able to use',
+      esimSubtext: 'you still need to Install to be able to use',
       autoCheckIn: 'Auto Check-in',
       baggageProtection: 'Baggage Protection',
       rewards: 'Rewards',
@@ -115,7 +115,7 @@ export const translations = {
     },
     bookingDetails: {
       title: 'Your booking',
-      bannerTitle: 'your esim is one step away from being activated',
+      bannerTitle: 'your esim is one step away from being Installed',
       bannerDesc: "install it now so it's ready before you travel",
       route: 'JED to RUH',
       dates: '11 Aug 2024 - 18 Aug 2024',
@@ -130,7 +130,7 @@ export const translations = {
     },
     activateIntro: {
       stepLabel: 'Step 1 of 4 · Prepare',
-      heading: 'Activate your eSIM in just a few steps',
+      heading: 'Install your eSIM in just a few steps',
       installEsim: 'Install eSIM',
     },
     activateSettings: {
@@ -140,7 +140,7 @@ export const translations = {
       openSettings: 'Open Settings',
       configuring: 'Configuring eSIM',
       phases: ['Verifying device…', 'Installing eSIM profile…', 'Almost there…'],
-      cellularPopupAlt: 'iOS Settings — Activate Your eSIM popup',
+      cellularPopupAlt: 'iOS Settings — Install Your eSIM popup',
       connectingAlt: 'iOS Settings — Connecting to carrier',
     },
     devicePicker: {
