@@ -1,9 +1,10 @@
-import { Button, Tag, TabBar } from 'design-system'
+import { Tag, TabBar } from 'design-system'
 import SectionTitle from '../components/SectionTitle'
 import Icon from '../components/Icon'
 import IllustrationIcon from '../components/IllustrationIcon'
 import StatusBar from '../components/StatusBar'
 import Price from '../components/Price'
+import EsimStatusBanner from '../components/EsimStatusBanner'
 import { useLanguage } from '../i18n/LanguageContext'
 
 import avatarIconSvg from '../assets/illustrations/avatar-icon.svg?raw'
@@ -57,7 +58,7 @@ const DEALS = [
   { key: 'deal4', image: dealCard4, code: 'TRANSFER' },
 ]
 
-export default function HomepageScreen({ onViewEsims }) {
+export default function HomepageScreen({ onViewEsims, onTopup, esimTab = 0 }) {
   const { t } = useLanguage()
 
   const productLabels = { flights: t.homepage.flights, stays: t.homepage.stays, activities: t.homepage.activities }
@@ -128,14 +129,30 @@ export default function HomepageScreen({ onViewEsims }) {
         </header>
 
         <div className="homepage__body">
-          <div className="hp-esim-banner">
-            <img src={esimChip} alt="" className="hp-esim-icon hp-esim-icon--sm" />
-            <div className="hp-esim-banner__text">
-              <p className="hp-esim-banner__title">{t.homepage.esimBannerTitle}</p>
-              <p className="hp-esim-banner__desc">{t.homepage.esimBannerDesc}</p>
-              <Button variant="primary" size="small" label={t.homepage.viewEsims} onClick={onViewEsims} />
-            </div>
-          </div>
+          {esimTab === 0 ? (
+            <EsimStatusBanner
+              tone="install"
+              icon={esimChip}
+              title={t.homepage.esimBannerTitle}
+              desc={t.homepage.esimBannerDesc}
+              installedCount={0}
+              installedTotal={2}
+              statLabel={t.common.installedCount(0, 2)}
+              buttonLabel={t.common.install}
+              onAction={onViewEsims}
+            />
+          ) : (
+            <EsimStatusBanner
+              tone="lowdata"
+              icon={esimChip}
+              title={t.homepage.esimLowBannerTitle}
+              desc={t.common.gbLeftOf(0.4, 4)}
+              percent={12}
+              statLabel={t.common.percentRemaining(12, 2)}
+              buttonLabel={t.common.topup}
+              onAction={onTopup}
+            />
+          )}
 
           <section className="hp-section">
             <SectionTitle title={t.homepage.upcomingTrip} actionLabel={t.common.viewAll} size="compact" />

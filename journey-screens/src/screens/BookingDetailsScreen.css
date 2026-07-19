@@ -2,6 +2,7 @@
   flex: 1 0 0;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -15,45 +16,6 @@
   flex-direction: column;
   gap: var(--space-lg);
   padding: 0 var(--space) var(--space-lg);
-}
-
-/* ── esim reminder banner ── */
-
-.bd-banner {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space);
-  width: 100%;
-  padding: var(--space);
-  border-radius: var(--rounded);
-  background: var(--background-caution-subtle, #fff8e6);
-  color: var(--icon-caution-default);
-}
-
-.bd-banner__text {
-  flex: 1 0 0;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sm);
-}
-
-.bd-banner__title {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--type-body-size);
-  font-weight: 700;
-  line-height: var(--type-body-lh);
-  color: var(--text-base-default);
-}
-
-.bd-banner__desc {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--type-body-size);
-  line-height: var(--type-body-lh);
-  color: var(--text-base-default);
 }
 
 /* ── booking summary card — ported from PostBookingProductCard ── */
@@ -361,36 +323,249 @@
   object-fit: contain;
 }
 
-/* ── progress ring ── */
+/* ── progress ring: fullness gauge, sized to match the other card icons ── */
 
 .ec-ring {
   position: relative;
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-  background: conic-gradient(var(--icon-secondary-default) var(--ring-pct, 0%), var(--border-base-default) 0);
 }
 
-.ec-ring::before {
-  content: '';
+.ec-ring__svg {
   position: absolute;
-  inset: 2px;
-  border-radius: 50%;
-  background: var(--background-base-default);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ec-ring__track,
+.ec-ring__fill {
+  fill: none;
+  stroke-width: 4;
+}
+
+.ec-ring__track {
+  stroke: var(--border-base-default);
+}
+
+.ec-ring__fill {
+  stroke: var(--icon-secondary-default);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease, stroke 0.2s ease;
+}
+
+.ec-ring--low .ec-ring__fill {
+  stroke: var(--icon-caution-default);
 }
 
 .ec-ring__label {
   position: absolute;
   inset: 0;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-body);
-  font-size: 6px;
+  font-size: 7px;
+  letter-spacing: -0.2px;
   line-height: 1;
+  color: var(--text-base-default);
+}
+
+/* ── card variant: "stat" — hero number leads, edge stripe flags urgency,
+   gauge trails with a slider-style thumb ── */
+
+.ec-card--stat {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ec-card-stat__accent {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 4px;
+  background: var(--icon-secondary-default);
+}
+
+.ec-card--stat-low .ec-card-stat__accent {
+  background: var(--icon-caution-default);
+}
+
+.ec-card-stat__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space);
+  padding-inline-start: calc(var(--space) + 4px);
+}
+
+.ec-card-stat__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 100%;
+}
+
+.ec-card-stat__icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.ec-card-stat__label {
+  flex: 1 0 0;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-lh);
+  color: var(--text-base-subtext);
+}
+
+.ec-card-stat__headline {
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.ec-card-stat__amount {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 30px;
+  color: var(--text-base-default);
+}
+
+.ec-card--stat-low .ec-card-stat__amount {
+  color: var(--icon-caution-default);
+}
+
+.ec-card-stat__suffix {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-base-subtext);
+}
+
+.ec-card-stat__gauge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.ec-card-stat__track {
+  flex: 1 0 0;
+  height: 8px;
+  border-radius: var(--rounded-full);
+  background: var(--background-neutral-subtle);
+}
+
+.ec-card-stat__fill {
+  position: relative;
+  height: 100%;
+  border-radius: var(--rounded-full);
+  background: var(--icon-secondary-default);
+  transition: width 0.4s ease;
+}
+
+.ec-card--stat-low .ec-card-stat__fill {
+  background: var(--icon-caution-default);
+}
+
+.ec-card-stat__thumb {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: -1px;
+  transform: translate(50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: inherit;
+  border: 2px solid var(--background-base-default);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.ec-card-stat__days {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-lh);
+  color: var(--text-base-subtext);
   white-space: nowrap;
+}
+
+/* ── card variant: "gauge" — compact fraction badge + slim bar underneath ── */
+
+.ec-card-gauge__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space);
+  width: 100%;
+}
+
+.ec-card-gauge__badge-col {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  width: 44px;
+}
+
+.ec-card-gauge__badge {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--icon-secondary-default);
+  white-space: nowrap;
+}
+
+.ec-card-gauge__badge--low {
+  color: var(--icon-caution-default);
+}
+
+.ec-card-gauge__badge-track {
+  width: 100%;
+  height: 4px;
+  border-radius: var(--rounded-full);
+  background: var(--background-neutral-subtle);
+  overflow: hidden;
+}
+
+.ec-card-gauge__badge-fill {
+  height: 100%;
+  border-radius: var(--rounded-full);
+  background: var(--icon-secondary-default);
+  transition: width 0.4s ease;
+}
+
+.ec-card-gauge__badge-fill--low {
+  background: var(--icon-caution-default);
+}
+
+.ec-card-gauge__text {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ec-card-gauge__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-subtitle-size, 16px);
   font-weight: 600;
+  line-height: 24px;
+  color: var(--text-base-default);
+}
+
+.ec-card-gauge__subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-lh);
   color: var(--text-base-subtext);
 }

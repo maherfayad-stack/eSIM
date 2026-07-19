@@ -3,6 +3,7 @@ import { Button, Tag } from 'design-system'
 import SheetShell from '../components/SheetShell'
 import SectionTitle from '../components/SectionTitle'
 import Icon from '../components/Icon'
+import EsimStatusBanner from '../components/EsimStatusBanner'
 
 import calendarSvg from 'design-system/src/icons/line-icons/calendar.svg?raw'
 import usersThreeSvg from 'design-system/src/icons/line-icons/usersThree.svg?raw'
@@ -35,11 +36,32 @@ function BookingReferenceRow({ label, value, onCopy, separator = true }) {
   )
 }
 
+const RING_RADIUS = 17
+const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS
+const RING_LOW_THRESHOLD = 25
+
 function EsimAddonIcon({ type, ringPercent }) {
   if (type === 'ring') {
+    const pct = Math.max(0, Math.min(100, ringPercent))
+    const isLow = pct <= RING_LOW_THRESHOLD
     return (
-      <div className="ec-ring" style={{ '--ring-pct': `${ringPercent}%` }}>
-        <span className="ec-ring__label">{ringPercent}%</span>
+      <div
+        className={`ec-ring${isLow ? ' ec-ring--low' : ''}`}
+        role="img"
+        aria-label={`${pct}%`}
+      >
+        <svg className="ec-ring__svg" viewBox="0 0 40 40">
+          <circle className="ec-ring__track" cx="20" cy="20" r={RING_RADIUS} />
+          <circle
+            className="ec-ring__fill"
+            cx="20"
+            cy="20"
+            r={RING_RADIUS}
+            strokeDasharray={RING_CIRCUMFERENCE}
+            strokeDashoffset={RING_CIRCUMFERENCE * (1 - pct / 100)}
+          />
+        </svg>
+        <span className="ec-ring__label" aria-hidden="true">{pct}%</span>
       </div>
     )
   }
@@ -76,7 +98,81 @@ function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, on
   )
 }
 
-export default function BookingDetailsScreen({ onClose, onInstall, onTopup, scrollToEsimSignal, onScrolled }) {
+// Variant: a hero stat card — the remaining GB leads as a large number, a
+// color-coded edge stripe flags urgency at a glance, and the gauge trails
+// with a slider-style thumb instead of a flat bar.
+function EsimAddonCardStat({ percent, gbLeft, daysLeft, buttonLabel, buttonVariant, onAction }) {
+  const { t } = useLanguage()
+  const pct = Math.max(0, Math.min(100, percent))
+  const isLow = pct <= RING_LOW_THRESHOLD
+  return (
+    <div className={`ec-card ec-card--stat${isLow ? ' ec-card--stat-low' : ''}`}>
+      <div className="ec-card-stat__accent" aria-hidden="true" />
+      <div className="ec-card-stat__body">
+        <div className="ec-card-stat__top">
+          <img src={esimChip} alt="" className="ec-card-stat__icon" />
+          <span className="ec-card-stat__label">{t.common.esimLabel} · {t.bookingDetails.gbTag}</span>
+          <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
+        </div>
+        <p className="ec-card-stat__headline">
+          <span className="ec-card-stat__amount">{gbLeft} GB</span>
+          <span className="ec-card-stat__suffix"> left</span>
+        </p>
+        <div className="ec-card-stat__gauge">
+          <div className="ec-card-stat__track">
+            <div className="ec-card-stat__fill" style={{ width: `${pct}%` }}>
+              <span className="ec-card-stat__thumb" />
+            </div>
+          </div>
+          <span className="ec-card-stat__days">{t.common.daysLeft(daysLeft)}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Variant: a compact fraction badge ("4/5 GB") with a slim bar underneath —
+// states the exact amount remaining outright, in a tighter, cleaner footprint.
+function EsimAddonCardGauge({ percent, gbLeft, gbTotal, daysLeft, buttonLabel, buttonVariant, onAction }) {
+  const { t } = useLanguage()
+  const pct = Math.max(0, Math.min(100, percent))
+  const isLow = pct <= RING_LOW_THRESHOLD
+  return (
+    <div className="ec-card ec-card--gauge">
+      <div className="ec-card-gauge__row">
+        <div className="ec-card-gauge__badge-col">
+          <span className={`ec-card-gauge__badge${isLow ? ' ec-card-gauge__badge--low' : ''}`}>
+            {t.common.gbFraction(gbLeft, gbTotal)}
+          </span>
+          <div className="ec-card-gauge__badge-track">
+            <div className={`ec-card-gauge__badge-fill${isLow ? ' ec-card-gauge__badge-fill--low' : ''}`} style={{ width: `${pct}%` }} />
+          </div>
+        </div>
+        <div className="ec-card-gauge__text">
+          <p className="ec-card-gauge__title">{t.common.esimLabel}</p>
+          <p className="ec-card-gauge__subtitle">{t.common.daysLeft(daysLeft)}</p>
+        </div>
+        <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
+      </div>
+    </div>
+  )
+}
+
+const TOPUP_CARDS = [
+  { percent: 99, gbLeft: 4, daysLeft: 3, buttonVariant: 'primary-inverted' },
+  { percent: 20, gbLeft: 1, daysLeft: 3, buttonVariant: 'primary' },
+  { percent: 65, gbLeft: 4, daysLeft: 18, buttonVariant: 'primary-inverted' },
+]
+
+export default function BookingDetailsScreen({
+  onClose,
+  onInstall,
+  onTopup,
+  scrollToEsimSignal,
+  onScrolled,
+  esimTab = 0,
+  esimCardStyle = 0,
+}) {
   const { t } = useLanguage()
   const d = t.bookingDetails
   const scrollRef = useRef(null)
@@ -100,14 +196,30 @@ export default function BookingDetailsScreen({ onClose, onInstall, onTopup, scro
     <SheetShell title={d.title} onClose={onClose} className="booking-details">
       <div className="booking-details__scroll" ref={scrollRef}>
       <div className="booking-details__body">
-        <div className="bd-banner">
-          <img src={esimChip} alt="" className="ec-icon-img" style={{ width: 24, height: 24 }} />
-          <div className="bd-banner__text">
-            <p className="bd-banner__title">{d.bannerTitle}</p>
-            <p className="bd-banner__desc">{d.bannerDesc}</p>
-            <Button variant="primary" size="small" label={t.common.install} onClick={scrollToEsims} />
-          </div>
-        </div>
+        {esimTab === 0 ? (
+          <EsimStatusBanner
+            tone="install"
+            icon={esimChip}
+            title={d.bannerTitle}
+            desc={d.bannerDesc}
+            installedCount={0}
+            installedTotal={2}
+            statLabel={t.common.installedCount(0, 2)}
+            buttonLabel={t.common.install}
+            onAction={scrollToEsims}
+          />
+        ) : (
+          <EsimStatusBanner
+            tone="lowdata"
+            icon={esimChip}
+            title={d.lowBannerTitle}
+            desc={t.common.gbLeftOf(0.4, 4)}
+            percent={12}
+            statLabel={t.common.percentRemaining(12, 2)}
+            buttonLabel={t.common.topup}
+            onAction={onTopup}
+          />
+        )}
 
         <article className="bd-card">
           <div className="bd-card__status-row">
@@ -156,36 +268,67 @@ export default function BookingDetailsScreen({ onClose, onInstall, onTopup, scro
           <SectionTitle title={d.purchasedAddons} size="compact" />
 
           <div className="bd-esim-list">
-            <EsimAddonCard
-              icon="install"
-              subtitle={d.installNowLong}
-              buttonLabel={t.common.install}
-              buttonVariant="primary"
-              onAction={onInstall}
-            />
-            <EsimAddonCard
-              icon="install"
-              subtitle={d.installNowLong}
-              buttonLabel={t.common.install}
-              buttonVariant="primary"
-              onAction={onInstall}
-            />
-            <EsimAddonCard
-              icon="ring"
-              ringPercent={99}
-              subtitleParts={[t.common.gbLeft(4), t.common.daysLeft(3)]}
-              buttonLabel={t.common.topup}
-              buttonVariant="primary-inverted"
-              onAction={onTopup}
-            />
-            <EsimAddonCard
-              icon="ring"
-              ringPercent={65}
-              subtitleParts={[t.common.gbLeft(4), t.common.daysLeft(18)]}
-              buttonLabel={t.common.topup}
-              buttonVariant="primary-inverted"
-              onAction={onTopup}
-            />
+            {esimTab === 0 ? (
+              <>
+                <EsimAddonCard
+                  icon="install"
+                  subtitle={d.installNowLong}
+                  buttonLabel={t.common.install}
+                  buttonVariant="primary"
+                  onAction={onInstall}
+                />
+                <EsimAddonCard
+                  icon="install"
+                  subtitle={d.installNowLong}
+                  buttonLabel={t.common.install}
+                  buttonVariant="primary"
+                  onAction={onInstall}
+                />
+              </>
+            ) : (
+              <>
+                {TOPUP_CARDS.map((card, i) => {
+                  if (esimCardStyle === 1) {
+                    return (
+                      <EsimAddonCardStat
+                        key={i}
+                        percent={card.percent}
+                        gbLeft={card.gbLeft}
+                        daysLeft={card.daysLeft}
+                        buttonLabel={t.common.topup}
+                        buttonVariant={card.buttonVariant}
+                        onAction={onTopup}
+                      />
+                    )
+                  }
+                  if (esimCardStyle === 2) {
+                    return (
+                      <EsimAddonCardGauge
+                        key={i}
+                        percent={card.percent}
+                        gbLeft={card.gbLeft}
+                        gbTotal={5}
+                        daysLeft={card.daysLeft}
+                        buttonLabel={t.common.topup}
+                        buttonVariant={card.buttonVariant}
+                        onAction={onTopup}
+                      />
+                    )
+                  }
+                  return (
+                    <EsimAddonCard
+                      key={i}
+                      icon="ring"
+                      ringPercent={card.percent}
+                      subtitleParts={[t.common.gbLeft(card.gbLeft), t.common.daysLeft(card.daysLeft)]}
+                      buttonLabel={t.common.topup}
+                      buttonVariant={card.buttonVariant}
+                      onAction={onTopup}
+                    />
+                  )
+                })}
+              </>
+            )}
           </div>
         </section>
       </div>

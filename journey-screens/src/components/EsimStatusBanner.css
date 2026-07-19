@@ -1,0 +1,102 @@
+.esb {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid var(--border-base-default);
+  border-radius: var(--rounded);
+  overflow: hidden;
+}
+
+.esb__top {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space);
+  padding: var(--space);
+}
+
+.esb--install .esb__top {
+  background: var(--background-primary-subtle);
+}
+
+.esb--lowdata .esb__top {
+  background: var(--background-warning-subtle);
+}
+
+.esb__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.esb__text {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: 2px;
+}
+
+.esb__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-bold-weight);
+  line-height: var(--type-body-lh);
+  color: var(--text-base-default);
+}
+
+.esb__desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-lh);
+  color: var(--text-base-default);
+}
+
+.esb__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space);
+  padding: var(--space);
+  background: var(--background-base-default);
+  border-top: 1px solid var(--border-base-default);
+}
+
+.esb__progress {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.esb__stepper {
+  height: 6px;
+}
+
+.esb__stepper .progress-stepper__step {
+  height: 6px;
+  border-radius: var(--rounded-full);
+}
+
+.esb--lowdata .esb__bar .lpi__track {
+  background: var(--background-warning-subtle);
+}
+
+.esb--lowdata .esb__bar .lpi__fill {
+  background: var(--background-warning-default);
+}
+
+.esb__stat {
+  margin: 0;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: var(--type-caption-size);
+  font-weight: var(--type-caption-semibold-weight);
+  line-height: var(--type-caption-lh);
+  color: var(--text-base-subtext);
+}

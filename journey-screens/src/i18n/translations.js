@@ -21,6 +21,45 @@ function gbLeftEn(n) {
   return `${n} GB left`
 }
 
+function gbLeftOfEn(left, total) {
+  return `${left} GB of ${total} GB left`
+}
+
+function gbLeftOfAr(left, total) {
+  return `تبقّى ${left} جيجا من أصل ${total} جيجا`
+}
+
+function installedCountEn(count, total) {
+  return `${count} / ${total} Installed`
+}
+
+function installedCountAr(count, total) {
+  return `${count} من ${total} مثبّتة`
+}
+
+function daysPlainAr(n) {
+  if (n === 1) return 'يوم واحد'
+  if (n === 2) return 'يومان'
+  if (n >= 3 && n <= 10) return `${n} أيام`
+  return `${n} يومًا`
+}
+
+function percentRemainingEn(percent, days) {
+  return `${percent}% remaining · ${days} day${days === 1 ? '' : 's'}`
+}
+
+function percentRemainingAr(percent, days) {
+  return `متبقٍ ${percent}% · ${daysPlainAr(days)}`
+}
+
+function gbFractionEn(left, total) {
+  return `${left}/${total} GB`
+}
+
+function gbFractionAr(left, total) {
+  return `${left}/${total} جيجا`
+}
+
 export const translations = {
   en: {
     common: {
@@ -45,6 +84,10 @@ export const translations = {
       viewAll: 'View all',
       gbLeft: gbLeftEn,
       daysLeft: daysLeftEn,
+      gbLeftOf: gbLeftOfEn,
+      installedCount: installedCountEn,
+      percentRemaining: percentRemainingEn,
+      gbFraction: gbFractionEn,
     },
     tabBar: {
       home: 'Home',
@@ -64,9 +107,9 @@ export const translations = {
       haramainTrain: 'Haramain Train',
       sixFlagsQiddiya: 'Six Flags Qiddiya City',
       seeMore: 'See more',
-      esimBannerTitle: 'You have 2 eSIMs for your trip to London ready to install',
-      esimBannerDesc: "Install them now so it's ready before you travel.",
-      viewEsims: 'View eSIMs',
+      esimBannerTitle: '2 eSIMs for your trip to London to install',
+      esimBannerDesc: 'Install before you fly.',
+      esimLowBannerTitle: 'London eSIM · running low',
       upcomingTrip: 'Upcoming trip',
       london: 'London',
       londonDates: '16 Dec 2025 - 1 Jan 2026',
@@ -115,8 +158,9 @@ export const translations = {
     },
     bookingDetails: {
       title: 'Your booking',
-      bannerTitle: 'Your eSIM is one step away from being installed',
-      bannerDesc: "Install it now so it's ready before you travel.",
+      bannerTitle: '2 eSIMs for your trip to London to install',
+      bannerDesc: 'Install before you fly.',
+      lowBannerTitle: 'London eSIM · running low',
       route: 'JED to RUH',
       dates: '11 Aug 2024 - 18 Aug 2024',
       adults: '2 x Adults',
@@ -196,6 +240,10 @@ export const translations = {
       viewAll: 'عرض الكل',
       gbLeft: gbLeftAr,
       daysLeft: daysLeftAr,
+      gbLeftOf: gbLeftOfAr,
+      installedCount: installedCountAr,
+      percentRemaining: percentRemainingAr,
+      gbFraction: gbFractionAr,
     },
     tabBar: {
       home: 'الرئيسية',
@@ -215,9 +263,9 @@ export const translations = {
       haramainTrain: 'قطار الحرمين',
       sixFlagsQiddiya: 'سِكس فلاغز قدية',
       seeMore: 'عرض المزيد',
-      esimBannerTitle: 'لديك شريحتان إلكترونيتان لرحلتك إلى لندن جاهزتان للتثبيت',
-      esimBannerDesc: 'ثبّتهما الآن ليكونا جاهزتين قبل سفرك.',
-      viewEsims: 'عرض الشرائح',
+      esimBannerTitle: 'شريحتان إلكترونيتان لرحلتك إلى لندن بانتظار التثبيت',
+      esimBannerDesc: 'ثبّتهما قبل السفر.',
+      esimLowBannerTitle: 'شريحة لندن · بياناتها منخفضة',
       upcomingTrip: 'رحلتك القادمة',
       london: 'لندن',
       londonDates: '16 ديسمبر 2025 - 1 يناير 2026',
@@ -266,8 +314,9 @@ export const translations = {
     },
     bookingDetails: {
       title: 'حجزك',
-      bannerTitle: 'شريحتك على بُعد خطوة من التفعيل',
-      bannerDesc: 'ثبّتها الآن لتكون جاهزة قبل سفرك',
+      bannerTitle: 'شريحتان إلكترونيتان لرحلتك إلى لندن بانتظار التثبيت',
+      bannerDesc: 'ثبّتهما قبل السفر.',
+      lowBannerTitle: 'شريحة لندن · بياناتها منخفضة',
       route: 'جدة إلى الرياض',
       dates: '11 أغسطس 2024 - 18 أغسطس 2024',
       adults: '2 × بالغين',

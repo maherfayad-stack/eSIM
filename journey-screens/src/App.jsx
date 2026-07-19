@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { DesignSystemProvider } from 'design-system'
+import { DesignSystemProvider, SegmentedControl } from 'design-system'
 import BookingConfirmationScreen from './screens/BookingConfirmationScreen'
 import HomepageScreen from './screens/HomepageScreen'
 import BookingDetailsScreen from './screens/BookingDetailsScreen'
@@ -29,7 +29,7 @@ export default function App() {
 }
 
 function AppShell() {
-  const { lang, dir, toggleLang } = useLanguage()
+  const { lang, dir, toggleLang, t } = useLanguage()
   const [active, setActive] = useState(SCREENS[0].key)
   const [isDark, setIsDark] = useState(false)
   const [view, setView] = useState('flow') // 'flow' | 'canvas'
@@ -40,8 +40,15 @@ function AppShell() {
   const [flow, setFlow] = useState(null) // null | 'activate' | 'topup'
   const [activateStep, setActivateStep] = useState('intro') // 'intro' | 'qr' — entry point once a device is chosen
   const [esimScrollTick, setEsimScrollTick] = useState(0)
+  // Demo-only state switcher for the eSIM install/topup card states — shared
+  // across Home page and Booking details so navigating between them stays coherent.
+  const [esimDemoTab, setEsimDemoTab] = useState(0)
+  // Demo-only visual variant for the "purchased add-ons" topup cards — control lives
+  // only in the settings sheet, not duplicated as a floating/chrome-level tab.
+  const [esimCardStyle, setEsimCardStyle] = useState(0)
   const current = SCREENS.find((s) => s.key === active)
   const isMobile = useIsMobile()
+  const showEsimDemoTabs = (active === 'homepage' || active === 'booking-details') && !flow
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
@@ -101,7 +108,7 @@ function AppShell() {
   } else {
     Screen = current.Component
     if (active === 'homepage') {
-      screenProps = { onViewEsims: goToEsims }
+      screenProps = { onViewEsims: goToEsims, onTopup: goToEsims, esimTab: esimDemoTab }
     } else if (active === 'booking-details') {
       screenProps = {
         onClose: () => {},
@@ -109,6 +116,8 @@ function AppShell() {
         onTopup: openTopupSheet,
         scrollToEsimSignal: esimScrollTick,
         onScrolled: consumeScrollSignal,
+        esimTab: esimDemoTab,
+        esimCardStyle,
       }
     }
 
@@ -125,6 +134,15 @@ function AppShell() {
   const closeSheet = useCallback(() => setSheetOpen(false), [])
   const gestures = useSettingsGesture(openSheet)
 
+  const esimDemoTabs = showEsimDemoTabs ? (
+    <SegmentedControl
+      items={[t.common.install, t.common.topup]}
+      value={esimDemoTab}
+      onChange={setEsimDemoTab}
+      className="esim-demo-tabs"
+    />
+  ) : null
+
   const settingsSheet = (
     <SettingsSheet
       open={sheetOpen}
@@ -136,6 +154,10 @@ function AppShell() {
       screens={SCREENS}
       active={active}
       onJumpTo={jumpTo}
+      esimTab={esimDemoTab}
+      onEsimTabChange={setEsimDemoTab}
+      esimCardStyle={esimCardStyle}
+      onEsimCardStyleChange={setEsimCardStyle}
     />
   )
 
@@ -151,6 +173,7 @@ function AppShell() {
           onPointerCancelCapture={gestures.handlePointerCancelCapture}
         >
           <div className="esim-mobile__actions">
+            {esimDemoTabs}
             <button type="button" className="esim-mobile__menu-btn" onClick={openSheet} aria-label="Settings">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="3" />
@@ -231,6 +254,10 @@ function AppShell() {
             </button>
           ))}
         </nav>
+      )}
+
+      {view !== 'canvas' && esimDemoTabs && (
+        <div className="esim-demo-tabs-row">{esimDemoTabs}</div>
       )}
 
       {view === 'canvas' ? (

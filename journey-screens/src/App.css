@@ -4,6 +4,7 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 /* ── top bar ── */
@@ -137,6 +138,19 @@
   font-weight: 600;
 }
 
+/* ── demo-only state switcher: which eSIM card state to preview ── */
+.esim-demo-tabs-row {
+  flex-shrink: 0;
+  display: flex;
+  background: var(--background-base-subtle);
+  border-bottom: 1px solid var(--border-base-default);
+  padding: var(--space-sm) 20px;
+}
+
+.esim-demo-tabs {
+  width: 220px;
+}
+
 /* ── stage — centers the phone frame ── */
 .esim-stage {
   flex: 1;
@@ -147,6 +161,7 @@
   justify-content: center;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
   background: var(--background-base-subtle);
   padding: 40px 0 40px;
   box-sizing: border-box;
@@ -185,6 +200,7 @@
   height: 100%;
   position: relative;
   overflow: hidden;
+  overscroll-behavior: none;
   display: flex;
   flex-direction: column;
   touch-action: manipulation;
@@ -196,9 +212,20 @@
   top: var(--space-md);
   inset-inline-end: var(--space-md);
   z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: max-content;
+}
+
+.esim-mobile__actions .esim-demo-tabs {
+  width: 150px;
+  flex-shrink: 0;
+  box-shadow: var(--elevation-raised);
 }
 
 .esim-mobile__menu-btn {
+  flex-shrink: 0;
   width: 36px;
   height: 36px;
   border-radius: var(--rounded-full);

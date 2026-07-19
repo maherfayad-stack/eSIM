@@ -2,7 +2,21 @@ import { BottomSheet, SegmentedControl, ListItem } from 'design-system'
 import SectionTitle from './SectionTitle'
 import './SettingsSheet.css'
 
-export default function SettingsSheet({ open, onClose, isDark, onThemeChange, lang, onLangChange, screens, active, onJumpTo }) {
+export default function SettingsSheet({
+  open,
+  onClose,
+  isDark,
+  onThemeChange,
+  lang,
+  onLangChange,
+  screens,
+  active,
+  onJumpTo,
+  esimTab,
+  onEsimTabChange,
+  esimCardStyle,
+  onEsimCardStyleChange,
+}) {
   return (
     <BottomSheet
       className="settings-sheet"
@@ -29,6 +43,24 @@ export default function SettingsSheet({ open, onClose, isDark, onThemeChange, la
             items={['EN', 'AR']}
             value={lang === 'ar' ? 1 : 0}
             onChange={(index) => onLangChange(index === 1 ? 'ar' : 'en')}
+          />
+        </div>
+
+        <div className="settings-sheet__section">
+          <SectionTitle title="eSIM state" size="compact" />
+          <SegmentedControl
+            items={['Install', 'Topup']}
+            value={esimTab}
+            onChange={onEsimTabChange}
+          />
+        </div>
+
+        <div className="settings-sheet__section">
+          <SectionTitle title="Topup card style" size="compact" />
+          <SegmentedControl
+            items={['Ring', 'Stat', 'Gauge']}
+            value={esimCardStyle}
+            onChange={onEsimCardStyleChange}
           />
         </div>
 
