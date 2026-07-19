@@ -98,34 +98,39 @@ function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, on
   )
 }
 
-// Variant: a hero stat card — the remaining GB leads as a large number, a
-// color-coded edge stripe flags urgency at a glance, and the gauge trails
-// with a slider-style thumb instead of a flat bar.
+// Variant: same compact skeleton and title row as the ring/install cards
+// (icon + "eSIM" + GB tag on top) so mixed lists of installed/not-yet-installed
+// eSIMs stay level — the second line promotes "GB left" to a bold headline
+// instead of muted subtitle text, with a thin bar underneath.
 function EsimAddonCardStat({ percent, gbLeft, daysLeft, buttonLabel, buttonVariant, onAction }) {
   const { t } = useLanguage()
   const pct = Math.max(0, Math.min(100, percent))
   const isLow = pct <= RING_LOW_THRESHOLD
   return (
-    <div className={`ec-card ec-card--stat${isLow ? ' ec-card--stat-low' : ''}`}>
-      <div className="ec-card-stat__accent" aria-hidden="true" />
-      <div className="ec-card-stat__body">
-        <div className="ec-card-stat__top">
-          <img src={esimChip} alt="" className="ec-card-stat__icon" />
-          <span className="ec-card-stat__label">{t.common.esimLabel} · {t.bookingDetails.gbTag}</span>
-          <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
-        </div>
-        <p className="ec-card-stat__headline">
-          <span className="ec-card-stat__amount">{gbLeft} GB</span>
-          <span className="ec-card-stat__suffix"> left</span>
-        </p>
-        <div className="ec-card-stat__gauge">
-          <div className="ec-card-stat__track">
-            <div className="ec-card-stat__fill" style={{ width: `${pct}%` }}>
-              <span className="ec-card-stat__thumb" />
+    <div className="ec-card">
+      <div className="ec-card__row">
+        <div className="ec-card__content">
+          <img src={esimChip} alt="" className="ec-icon-img" />
+          <div className="ec-card__text">
+            <div className="ec-card__title-row">
+              <p className="ec-card__title">{t.common.esimLabel}</p>
+              <Tag label={t.bookingDetails.gbTag} variant="neutral" style="tinted" />
+            </div>
+            <p className="ec-card-stat__headline-row">
+              <span className={`ec-card-stat__headline${isLow ? ' ec-card-stat__headline--low' : ''}`}>
+                {t.common.gbLeft(gbLeft)}
+              </span>
+              <span className="ec-card-stat__days">· {t.common.daysLeft(daysLeft)}</span>
+            </p>
+            <div className="ec-card-stat__track">
+              <div
+                className={`ec-card-stat__fill${isLow ? ' ec-card-stat__fill--low' : ''}`}
+                style={{ width: `${pct}%` }}
+              />
             </div>
           </div>
-          <span className="ec-card-stat__days">{t.common.daysLeft(daysLeft)}</span>
         </div>
+        <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
       </div>
     </div>
   )

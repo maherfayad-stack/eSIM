@@ -373,126 +373,51 @@
   color: var(--text-base-default);
 }
 
-/* ── card variant: "stat" — hero number leads, edge stripe flags urgency,
-   gauge trails with a slider-style thumb ── */
+/* ── card variant: "stat" — same footprint as the ring/install cards;
+   the second line becomes a bold GB-left headline, with a thin bar underneath ── */
 
-.ec-card--stat {
-  position: relative;
-  padding: 0;
-  overflow: hidden;
-}
-
-.ec-card-stat__accent {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: 0;
-  width: 4px;
-  background: var(--icon-secondary-default);
-}
-
-.ec-card--stat-low .ec-card-stat__accent {
-  background: var(--icon-caution-default);
-}
-
-.ec-card-stat__body {
+.ec-card-stat__headline-row {
+  margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space);
-  padding-inline-start: calc(var(--space) + 4px);
-}
-
-.ec-card-stat__top {
-  display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-xs);
-  width: 100%;
 }
 
-.ec-card-stat__icon {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
+.ec-card-stat__headline {
+  font-family: var(--font-body);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-lh);
+  font-weight: 700;
+  color: var(--text-base-default);
 }
 
-.ec-card-stat__label {
-  flex: 1 0 0;
-  min-width: 0;
+.ec-card-stat__headline--low {
+  color: var(--icon-caution-default);
+}
+
+.ec-card-stat__days {
   font-family: var(--font-body);
   font-size: var(--type-caption-size);
   line-height: var(--type-caption-lh);
   color: var(--text-base-subtext);
 }
 
-.ec-card-stat__headline {
-  margin: 0;
-  font-family: var(--font-body);
-}
-
-.ec-card-stat__amount {
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 30px;
-  color: var(--text-base-default);
-}
-
-.ec-card--stat-low .ec-card-stat__amount {
-  color: var(--icon-caution-default);
-}
-
-.ec-card-stat__suffix {
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--text-base-subtext);
-}
-
-.ec-card-stat__gauge {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  width: 100%;
-}
-
 .ec-card-stat__track {
-  flex: 1 0 0;
-  height: 8px;
+  height: 3px;
   border-radius: var(--rounded-full);
   background: var(--background-neutral-subtle);
+  overflow: hidden;
 }
 
 .ec-card-stat__fill {
-  position: relative;
   height: 100%;
   border-radius: var(--rounded-full);
   background: var(--icon-secondary-default);
   transition: width 0.4s ease;
 }
 
-.ec-card--stat-low .ec-card-stat__fill {
+.ec-card-stat__fill--low {
   background: var(--icon-caution-default);
-}
-
-.ec-card-stat__thumb {
-  position: absolute;
-  top: 50%;
-  inset-inline-end: -1px;
-  transform: translate(50%, -50%);
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: inherit;
-  border: 2px solid var(--background-base-default);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
-}
-
-.ec-card-stat__days {
-  flex-shrink: 0;
-  font-family: var(--font-body);
-  font-size: var(--type-caption-size);
-  line-height: var(--type-caption-lh);
-  color: var(--text-base-subtext);
-  white-space: nowrap;
 }
 
 /* ── card variant: "gauge" — compact fraction badge + slim bar underneath ── */
