@@ -161,7 +161,6 @@ export default function BookingDetailsScreen({ onClose, onInstall, onTopup, scro
           <div className="bd-esim-list">
             <EsimAddonCard
               icon="install"
-              travellerLabel={d.travellerLabel(1)}
               subtitle={d.installNowLong}
               buttonLabel={t.common.install}
               buttonVariant="primary"
@@ -169,7 +168,6 @@ export default function BookingDetailsScreen({ onClose, onInstall, onTopup, scro
             />
             <EsimAddonCard
               icon="install"
-              travellerLabel={d.travellerLabel(2)}
               subtitle={d.installNowLong}
               buttonLabel={t.common.install}
               buttonVariant="primary"

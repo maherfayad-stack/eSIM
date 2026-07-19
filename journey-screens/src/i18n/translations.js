@@ -103,7 +103,7 @@ export const translations = {
       forAllTravellers: 'For all travellers',
       reserveNow: 'Reserve now',
       purchasedAddons: 'Purchased add-ons',
-      esimSubtext: 'You still need to install it to be able to use it.',
+      esimSubtext: 'You still need to install it to be able to use.',
       autoCheckIn: 'Auto Check-in',
       baggageProtection: 'Baggage Protection',
       rewards: 'Rewards',
@@ -159,7 +159,7 @@ export const translations = {
       activateDetail: '1 GB | 30 days',
       topupHeading: 'Funds added to your eSIM successfully',
       topupDetail: '1 GB | 30 days',
-      primaryAction: 'Done',
+      primaryAction: 'Add-on details',
     },
     qrCode: {
       caption: 'Open your camera on the other device and point it at this code',
@@ -311,7 +311,7 @@ export const translations = {
       activateDetail: '1 جيجا | 30 يومًا',
       topupHeading: 'أضفنا الرصيد إلى شريحتك',
       topupDetail: '1 جيجا | 30 يومًا',
-      primaryAction: 'تم',
+      primaryAction: 'تفاصيل الإضافة',
     },
     qrCode: {
       caption: 'افتح الكاميرا على الجهاز الآخر ووجّهها نحو هذا الرمز',
