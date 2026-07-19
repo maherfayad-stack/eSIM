@@ -1,5 +1,6 @@
 import { Button, Cell } from 'design-system'
 import SheetShell from '../../components/SheetShell'
+import ProgressSignal from '../../components/ProgressSignal'
 import Icon from '../../components/Icon'
 import checkSvg from 'design-system/src/icons/line-icons/check.svg?raw'
 import questionCircleSvg from 'design-system/src/icons/line-icons/infoCircle.svg?raw'
@@ -9,12 +10,18 @@ import { useLanguage } from '../../i18n/LanguageContext'
 import './esim-shared.css'
 import './EsimSuccessScreen.css'
 
-export default function EsimSuccessScreen({ heading, detail, onClose, onDone }) {
+export default function EsimSuccessScreen({ heading, detail, onClose, onDone, stepLabel }) {
   const { t } = useLanguage()
   return (
     <SheetShell title={t.common.esimActivationTitle} onClose={onClose} className="esim-success">
       <div className="esim-sheet__scroll">
         <div className="esim-success__body">
+          {stepLabel && (
+            <div className="esim-success__progress">
+              <ProgressSignal step={3} total={3} label={stepLabel} />
+            </div>
+          )}
+
           <div className="esim-success__hero">
             <div className="esim-success__badges">
               <span className="esim-success__sim-badge">

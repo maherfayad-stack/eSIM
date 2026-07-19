@@ -129,12 +129,12 @@ export const translations = {
       moreAbout: (label) => `More about ${label}`,
     },
     activateIntro: {
-      stepLabel: 'Step 1 of 4 · Prepare',
+      stepLabel: 'Step 1 of 3 · Prepare',
       heading: 'Install your eSIM in just a few steps',
       installEsim: 'Install eSIM',
     },
     activateSettings: {
-      stepLabel: 'Step 2 of 4 · Install',
+      stepLabel: 'Step 2 of 3 · Install',
       heading: 'Install from settings',
       subtext: 'Tap "Activate" in the popup that opens. Your carrier confirms it instantly.',
       openSettings: 'Open Settings',
@@ -154,6 +154,7 @@ export const translations = {
       sarChip: (v) => `SAR ${v}`,
     },
     esimSuccess: {
+      activateStepLabel: 'Step 3 of 3 · Done',
       activateHeading: 'Your eSIM is installed',
       activateDetail: '1 GB | 30 days',
       topupHeading: 'Funds added to your eSIM successfully',
@@ -279,12 +280,12 @@ export const translations = {
       moreAbout: (label) => `المزيد حول ${label}`,
     },
     activateIntro: {
-      stepLabel: 'الخطوة 1 من 4 · التحضير',
+      stepLabel: 'الخطوة 1 من 3 · التحضير',
       heading: 'فعّل شريحتك الإلكترونية في خطوات بسيطة',
       installEsim: 'تثبيت الشريحة',
     },
     activateSettings: {
-      stepLabel: 'الخطوة 2 من 4 · التثبيت',
+      stepLabel: 'الخطوة 2 من 3 · التثبيت',
       heading: 'ثبّت من الإعدادات',
       subtext: 'اضغط على «تفعيل» في النافذة التي تظهر. يؤكدها مشغّل شبكتك فورًا.',
       openSettings: 'فتح الإعدادات',
@@ -304,6 +305,7 @@ export const translations = {
       sarChip: (v) => `${v} ر.س`,
     },
     esimSuccess: {
+      activateStepLabel: 'الخطوة 3 من 3 · تم',
       activateHeading: 'شريحتك مثبّتة',
       activateDetail: '1 جيجا | 30 يومًا',
       topupHeading: 'أضفنا الرصيد إلى شريحتك',

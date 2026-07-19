@@ -6,6 +6,11 @@
   padding: 0 var(--space) var(--space-2xl);
 }
 
+.esim-success__progress {
+  width: 100%;
+  padding-top: var(--space-sm);
+}
+
 .esim-success__hero {
   display: flex;
   flex-direction: column;

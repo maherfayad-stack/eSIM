@@ -22,6 +22,7 @@ export default function ActivationFlowScreen({ onExit, initialStep = 'intro' }) 
         <EsimSuccessScreen
           heading={t.esimSuccess.activateHeading}
           detail={t.esimSuccess.activateDetail}
+          stepLabel={t.esimSuccess.activateStepLabel}
           onClose={onExit}
           onDone={onExit}
         />
