@@ -64,24 +64,15 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 44px;
   padding: 0 var(--space);
 }
 
-.amount-sheet__close {
-  position: absolute;
-  inset-inline-start: var(--space);
-  border: none;
-  background: none;
-  padding: 0;
-  font-family: var(--font-body);
-  font-size: 15px;
-  color: var(--text-link-default);
-  cursor: pointer;
-}
-
 .amount-sheet__title {
+  position: absolute;
+  left: 68px;
+  right: 68px;
   margin: 0;
   font-family: var(--font-body);
   font-size: var(--type-subtitle-size);
@@ -89,6 +80,11 @@
   line-height: var(--type-subtitle-lh);
   color: var(--text-base-default);
   text-align: center;
+}
+
+.amount-sheet__spacer {
+  width: 44px;
+  height: 44px;
 }
 
 .amount-sheet__content {

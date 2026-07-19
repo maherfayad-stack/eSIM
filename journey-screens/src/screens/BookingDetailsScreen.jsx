@@ -44,19 +44,10 @@ function EsimAddonIcon({ type, ringPercent }) {
     )
   }
 
-  if (type === 'fill') {
-    const pct = Math.max(0, Math.min(100, ringPercent ?? 100))
-    return (
-      <span className="ec-icon ec-icon--fill">
-        <span className="ec-icon__fill-bar" style={{ height: `${pct}%` }} />
-      </span>
-    )
-  }
-
   return <img src={esimChip} alt="" className="ec-icon-img" />
 }
 
-function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, onAction, icon, ringPercent, progress }) {
+function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, onAction, icon, ringPercent, travellerLabel }) {
   const { t } = useLanguage()
   return (
     <div className="ec-card">
@@ -65,7 +56,10 @@ function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, on
           <EsimAddonIcon type={icon} ringPercent={ringPercent} />
           <div className="ec-card__text">
             <div className="ec-card__title-row">
-              <p className="ec-card__title">{t.common.esimLabel}</p>
+              <p className="ec-card__title">
+                {t.common.esimLabel}
+                {travellerLabel && <span className="ec-card__traveller"> · {travellerLabel}</span>}
+              </p>
               <Tag label={t.bookingDetails.gbTag} variant="neutral" style="tinted" />
             </div>
             {subtitleParts ? (
@@ -81,20 +75,6 @@ function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, on
         </div>
         <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
       </div>
-
-      {progress && (
-        <div className="ec-progress">
-          <div className="ec-progress__track">
-            {Array.from({ length: progress.segments }).map((_, i) => (
-              <span
-                key={i}
-                className={`ec-progress__segment${i < progress.filled ? ' ec-progress__segment--filled' : ''}`}
-              />
-            ))}
-          </div>
-          <p className="ec-progress__label">{progress.label}</p>
-        </div>
-      )}
     </div>
   )
 }
@@ -181,14 +161,16 @@ export default function BookingDetailsScreen({ onClose, onInstall, onTopup, scro
           <div className="bd-esim-list">
             <EsimAddonCard
               icon="install"
+              travellerLabel={d.travellerLabel(1)}
               subtitle={d.installNowLong}
               buttonLabel={t.common.install}
               buttonVariant="primary"
               onAction={onInstall}
             />
             <EsimAddonCard
-              icon="locked"
-              subtitle={t.homepage.stillNeedToInstall}
+              icon="install"
+              travellerLabel={d.travellerLabel(2)}
+              subtitle={d.installNowLong}
               buttonLabel={t.common.install}
               buttonVariant="primary"
               onAction={onInstall}
@@ -202,18 +184,9 @@ export default function BookingDetailsScreen({ onClose, onInstall, onTopup, scro
               onAction={onTopup}
             />
             <EsimAddonCard
-              icon="install"
-              subtitle={t.common.daysLeft(18)}
-              buttonLabel={t.common.topup}
-              buttonVariant="primary-inverted"
-              progress={{ segments: 5, filled: 2, label: t.common.gbLeft(4) }}
-              onAction={onTopup}
-            />
-
-            <EsimAddonCard
-              icon="fill"
-              ringPercent={80}
-              subtitle={`80% . ${t.common.gbLeft(4)} . ${t.common.daysLeft(3)}`}
+              icon="ring"
+              ringPercent={65}
+              subtitleParts={[t.common.gbLeft(4), t.common.daysLeft(18)]}
               buttonLabel={t.common.topup}
               buttonVariant="primary-inverted"
               onAction={onTopup}

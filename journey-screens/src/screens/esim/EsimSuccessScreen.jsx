@@ -9,7 +9,7 @@ import { useLanguage } from '../../i18n/LanguageContext'
 import './esim-shared.css'
 import './EsimSuccessScreen.css'
 
-export default function EsimSuccessScreen({ heading, detail, onClose, onAddonDetails }) {
+export default function EsimSuccessScreen({ heading, detail, onClose, onDone }) {
   const { t } = useLanguage()
   return (
     <SheetShell title={t.common.esimActivationTitle} onClose={onClose} className="esim-success">
@@ -28,7 +28,7 @@ export default function EsimSuccessScreen({ heading, detail, onClose, onAddonDet
               <p className="esim-success__heading">{heading}</p>
               <p className="esim-success__detail">{detail}</p>
             </div>
-            <Button variant="primary-inverted" size="small" label={t.esimSuccess.addonDetails} onClick={onAddonDetails} />
+            <Button variant="primary-inverted" size="small" label={t.esimSuccess.primaryAction} onClick={onDone} />
           </div>
 
           <div className="esim-success__more">

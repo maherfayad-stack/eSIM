@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Chip, TextInput } from 'design-system'
+import { Button, Chip, GlassButton, TextInput } from 'design-system'
 import { useLanguage } from '../../i18n/LanguageContext'
 import './EnterAmountSheet.css'
 
@@ -19,10 +19,9 @@ export default function EnterAmountSheet({ onClose, onConfirm }) {
           </button>
 
           <div className="amount-sheet__header">
-            <button type="button" className="amount-sheet__close" onClick={onClose}>
-              {t.common.close}
-            </button>
+            <GlassButton bg="default" type="x" onClick={onClose} aria-label={t.common.close} />
             <p className="amount-sheet__title">{t.enterAmount.title}</p>
+            <div className="amount-sheet__spacer" aria-hidden="true" />
           </div>
 
           <div className="amount-sheet__content">

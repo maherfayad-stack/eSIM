@@ -23,7 +23,7 @@ export default function TopupFlowScreen({ onExit }) {
       heading={t.esimSuccess.topupHeading}
       detail={t.esimSuccess.topupDetail}
       onClose={onExit}
-      onAddonDetails={onExit}
+      onDone={onExit}
     />
   )
 }

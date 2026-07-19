@@ -334,6 +334,11 @@
   color: var(--text-base-default);
 }
 
+.ec-card__traveller {
+  font-weight: 400;
+  color: var(--text-base-subtext);
+}
+
 .ec-card__subtitle {
   margin: 0;
   font-family: var(--font-body);
@@ -352,37 +357,13 @@
   white-space: nowrap;
 }
 
-/* ── icon slot: eSIM chip illustration (install / locked) ── */
+/* ── icon slot: eSIM chip illustration (not-yet-installed cards) ── */
 
 .ec-icon-img {
   flex-shrink: 0;
   width: 24px;
   height: 24px;
   object-fit: contain;
-}
-
-/* ── icon slot: partial-fill gauge (topup "80%" card) ── */
-
-.ec-icon {
-  position: relative;
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-}
-
-.ec-icon--fill {
-  border-radius: 6px;
-  border: 0.8px solid var(--color-aqua-100);
-  background: var(--color-aqua-30);
-  overflow: hidden;
-}
-
-.ec-icon__fill-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--color-aqua-100);
 }
 
 /* ── progress ring ── */
@@ -416,43 +397,5 @@
   line-height: 1;
   white-space: nowrap;
   font-weight: 600;
-  color: var(--text-base-subtext);
-}
-
-/* ── standalone progress bar between cards ── */
-
-.ec-progress {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  width: 100%;
-  padding-block: 0;
-  padding-inline-end: 104px;
-  padding-inline-start: var(--space);
-}
-
-.ec-progress__track {
-  display: flex;
-  gap: var(--space-xs);
-  width: 100%;
-}
-
-.ec-progress__segment {
-  flex: 1 0 0;
-  height: 8px;
-  border-radius: var(--rounded-full);
-  background: var(--border-base-default);
-}
-
-.ec-progress__segment--filled {
-  background: var(--color-aqua-200, #008296);
-}
-
-.ec-progress__label {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: var(--type-body-size);
-  font-weight: var(--type-body-semibold-weight);
-  line-height: var(--type-body-lh);
   color: var(--text-base-subtext);
 }

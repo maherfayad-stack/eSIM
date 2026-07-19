@@ -158,26 +158,13 @@ export default function HomepageScreen({ onViewEsims }) {
 
               <div className="hp-thread-connector" />
 
-              <div className="hp-thread-card hp-thread-card--row">
-                <div className="hp-esim-icon-new">
-                  <img src={esimChip} alt="" className="hp-esim-icon hp-esim-icon--md" />
-                </div>
-                <div className="hp-thread-card__text">
-                  <p className="hp-thread-card__title">{t.homepage.dontForgetInstall}</p>
-                  <p className="hp-thread-card__subtitle">{t.homepage.stillNeedToInstall}</p>
-                </div>
-                <Button variant="primary" size="small" label={t.homepage.viewEsims} onClick={onViewEsims} />
-              </div>
-
-              <div className="hp-thread-connector" />
-
               <div className="hp-thread-card">
                 <p className="hp-enhance__label">{t.homepage.enhanceYourTrip}</p>
                 <div className="hp-enhance__row">
                   <Icon svg={addonAirportTransferSvg} size={40} />
                   <div className="hp-enhance__text">
-                    <p className="hp-enhance__title">{t.homepage.addonTitlePlaceholder}</p>
-                    <p className="hp-enhance__subtitle">{t.homepage.addonSubtitlePlaceholder}</p>
+                    <p className="hp-enhance__title">{t.homepage.addonTransferTitle}</p>
+                    <p className="hp-enhance__subtitle">{t.homepage.addonTransferSubtitle}</p>
                     <div className="hp-enhance__price-row">
                       <Price value="66" strikethrough color="var(--text-warning-default)" />
                       <Price value="45" color="var(--text-link-default)" />
@@ -186,10 +173,10 @@ export default function HomepageScreen({ onViewEsims }) {
                   <Icon svg={chevronRightSvg} size={16} className="hp-enhance__chevron" />
                 </div>
                 <div className="hp-enhance__row">
-                  <Icon svg={addonAirportTransferSvg} size={40} />
+                  <Icon svg={addonInsuranceSvg} size={40} />
                   <div className="hp-enhance__text">
-                    <p className="hp-enhance__title">{t.homepage.addonTitlePlaceholder}</p>
-                    <p className="hp-enhance__subtitle">{t.homepage.addonSubtitlePlaceholder}</p>
+                    <p className="hp-enhance__title">{t.homepage.addonInsuranceTitle}</p>
+                    <p className="hp-enhance__subtitle">{t.homepage.addonInsuranceSubtitle}</p>
                     <div className="hp-enhance__price-row">
                       <Price value="66" strikethrough color="var(--text-warning-default)" />
                       <Price value="45" color="var(--text-link-default)" />

@@ -229,11 +229,6 @@
   background: var(--background-caution-subtle, #fff8e6);
   color: var(--icon-caution-default);
 }
-.hp-esim-icon-new{
-  height: full;
-  align-items: start;
-  justify-content: start;
-}
 .hp-esim-icon {
   flex-shrink: 0;
   object-fit: contain;
@@ -242,11 +237,6 @@
 .hp-esim-icon--sm {
   width: 24px;
   height: 24px;
-}
-
-.hp-esim-icon--md {
-  width: 40px;
-  height: 40px;
 }
 
 .hp-esim-banner__text {
