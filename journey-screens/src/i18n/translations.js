@@ -127,7 +127,6 @@ export const translations = {
       gbTag: '5 GB',
       installNowLong: 'Install now. Validity starts once it connects to a network for the first time.',
       moreAbout: (label) => `More about ${label}`,
-      travellerLabel: (n) => `Traveller ${n}`,
     },
     activateIntro: {
       stepLabel: 'Step 1 of 4 · Prepare',
@@ -164,9 +163,8 @@ export const translations = {
     qrCode: {
       caption: 'Open your camera on the other device and point it at this code',
       heading: 'Install on another device',
-      stepLabel: 'Step 3 of 4 · Scan',
       subtext: 'Scan the QR code with the other device and follow the on-screen instructions.',
-      continueLabel: 'Continue',
+      doneLabel: 'Done',
       qrAlt: 'QR code',
     },
     topup: {
@@ -279,7 +277,6 @@ export const translations = {
       gbTag: '5 جيجا',
       installNowLong: 'ثبّتها الآن. تبدأ صلاحيتها بمجرد اتصالها بالشبكة لأول مرة.',
       moreAbout: (label) => `المزيد حول ${label}`,
-      travellerLabel: (n) => `المسافر ${n}`,
     },
     activateIntro: {
       stepLabel: 'الخطوة 1 من 4 · التحضير',
@@ -316,9 +313,8 @@ export const translations = {
     qrCode: {
       caption: 'افتح الكاميرا على الجهاز الآخر ووجّهها نحو هذا الرمز',
       heading: 'التثبيت على جهاز آخر',
-      stepLabel: 'الخطوة 3 من 4 · المسح',
       subtext: 'امسح رمز QR بجهاز آخر واتبع التعليمات التي تظهر على الشاشة.',
-      continueLabel: 'متابعة',
+      doneLabel: 'تم',
       qrAlt: 'رمز QR',
     },
     topup: {

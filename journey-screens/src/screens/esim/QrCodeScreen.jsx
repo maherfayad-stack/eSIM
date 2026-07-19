@@ -1,6 +1,5 @@
 import { Button } from 'design-system'
 import SheetShell from '../../components/SheetShell'
-import ProgressSignal from '../../components/ProgressSignal'
 import Icon from '../../components/Icon'
 import checkSvg from '../../assets/icons/check.svg?raw'
 import qrImage from '../../assets/esim-flow/activity-qr.png'
@@ -8,16 +7,12 @@ import { useLanguage } from '../../i18n/LanguageContext'
 import './esim-shared.css'
 import './QrCodeScreen.css'
 
-export default function QrCodeScreen({ onClose, onContinue }) {
+export default function QrCodeScreen({ onClose, onDone }) {
   const { t } = useLanguage()
   return (
     <SheetShell title={t.common.esimActivationTitle} onClose={onClose} className="esim-qr">
       <div className="esim-sheet__scroll">
         <div className="esim-sheet__body">
-          <div className="esim-intro__progress">
-            <ProgressSignal step={3} total={4} label={t.qrCode.stepLabel} />
-          </div>
-
           <div className="esim-qr__card">
             <div className="esim-qr__frame">
               <img src={qrImage} alt={t.qrCode.qrAlt} className="esim-qr__image" />
@@ -46,7 +41,7 @@ export default function QrCodeScreen({ onClose, onContinue }) {
       </div>
 
       <div className="esim-sheet__footer">
-        <Button variant="primary" label={t.qrCode.continueLabel} onClick={onContinue} />
+        <Button variant="primary" label={t.qrCode.doneLabel} onClick={onDone} />
       </div>
     </SheetShell>
   )

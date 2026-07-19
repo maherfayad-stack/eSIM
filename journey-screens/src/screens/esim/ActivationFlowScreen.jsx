@@ -17,7 +17,7 @@ export default function ActivationFlowScreen({ onExit, initialStep = 'intro' }) 
       {step === 'settings' && (
         <ActivateSettingsScreen onClose={onExit} onDone={() => setStep('success')} />
       )}
-      {step === 'qr' && <QrCodeScreen onClose={onExit} onContinue={() => setStep('success')} />}
+      {step === 'qr' && <QrCodeScreen onClose={onExit} onDone={onExit} />}
       {step === 'success' && (
         <EsimSuccessScreen
           heading={t.esimSuccess.activateHeading}

@@ -47,7 +47,7 @@ function EsimAddonIcon({ type, ringPercent }) {
   return <img src={esimChip} alt="" className="ec-icon-img" />
 }
 
-function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, onAction, icon, ringPercent, travellerLabel }) {
+function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, onAction, icon, ringPercent }) {
   const { t } = useLanguage()
   return (
     <div className="ec-card">
@@ -56,10 +56,7 @@ function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, on
           <EsimAddonIcon type={icon} ringPercent={ringPercent} />
           <div className="ec-card__text">
             <div className="ec-card__title-row">
-              <p className="ec-card__title">
-                {t.common.esimLabel}
-                {travellerLabel && <span className="ec-card__traveller"> · {travellerLabel}</span>}
-              </p>
+              <p className="ec-card__title">{t.common.esimLabel}</p>
               <Tag label={t.bookingDetails.gbTag} variant="neutral" style="tinted" />
             </div>
             {subtitleParts ? (

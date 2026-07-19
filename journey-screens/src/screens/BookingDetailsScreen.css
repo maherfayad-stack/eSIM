@@ -334,11 +334,6 @@
   color: var(--text-base-default);
 }
 
-.ec-card__traveller {
-  font-weight: 400;
-  color: var(--text-base-subtext);
-}
-
 .ec-card__subtitle {
   margin: 0;
   font-family: var(--font-body);
