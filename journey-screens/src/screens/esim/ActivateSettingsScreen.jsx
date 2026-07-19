@@ -6,13 +6,15 @@ import StaticScreenshotScreen from './StaticScreenshotScreen'
 import esimOwn from '../../assets/esim-flow/figma/settings-phone-mockup.png'
 import settingsCellularPopup from '../../assets/esim-flow/figma/settings-cellular-popup.png'
 import settingsConnecting from '../../assets/esim-flow/figma/settings-connecting.png'
+import { useLanguage } from '../../i18n/LanguageContext'
 import './esim-shared.css'
 import './ActivateSettingsScreen.css'
 
-const PHASES = ['Verifying device…', 'Installing eSIM profile…', 'Almost there…']
 const PHASE_STEP_MS = 700
 
 export default function ActivateSettingsScreen({ onClose, onDone }) {
+  const { t } = useLanguage()
+  const PHASES = t.activateSettings.phases
   const [stage, setStage] = useState('ready') // 'ready' | 'cellular-popup' | 'connecting' | 'loading'
   const [phaseIndex, setPhaseIndex] = useState(0)
 
@@ -26,13 +28,13 @@ export default function ActivateSettingsScreen({ onClose, onDone }) {
       clearInterval(stepTimer)
       clearTimeout(doneTimer)
     }
-  }, [stage, onDone])
+  }, [stage, onDone, PHASES])
 
   if (stage === 'cellular-popup') {
     return (
       <StaticScreenshotScreen
         src={settingsCellularPopup}
-        alt="iOS Settings — Activate Your eSIM popup"
+        alt={t.activateSettings.cellularPopupAlt}
         onClick={() => setStage('connecting')}
       />
     )
@@ -42,26 +44,26 @@ export default function ActivateSettingsScreen({ onClose, onDone }) {
     return (
       <StaticScreenshotScreen
         src={settingsConnecting}
-        alt="iOS Settings — Connecting to carrier"
+        alt={t.activateSettings.connectingAlt}
         onClick={() => setStage('loading')}
       />
     )
   }
 
   return (
-    <SheetShell title="eSIM Activation" onClose={onClose} className="esim-settings">
+    <SheetShell title={t.common.esimActivationTitle} onClose={onClose} className="esim-settings">
       <div className="esim-sheet__scroll">
         <div className="esim-sheet__body">
           <div className="esim-intro__progress">
-            <ProgressSignal step={2} total={4} label="Step 2 of 4 · Install" />
+            <ProgressSignal step={2} total={4} label={t.activateSettings.stepLabel} />
           </div>
 
           <img src={esimOwn} alt="" className="esim-settings__phone" />
 
           <div className="esim-settings__copy">
-            <h1 className="esim-settings__heading">Install from Settings</h1>
+            <h1 className="esim-settings__heading">{t.activateSettings.heading}</h1>
             <p className="esim-settings__subtext">
-              Tap "Activate" in the popup that opens. Your carrier confirms it instantly.
+              {t.activateSettings.subtext}
             </p>
           </div>
         </div>
@@ -69,7 +71,7 @@ export default function ActivateSettingsScreen({ onClose, onDone }) {
 
       <div className="esim-sheet__footer">
         {stage === 'ready' ? (
-          <Button variant="primary" label="Open Settings" onClick={() => setStage('cellular-popup')} />
+          <Button variant="primary" label={t.activateSettings.openSettings} onClick={() => setStage('cellular-popup')} />
         ) : (
           <div className="esim-configuring">
             <div className="esim-radar" aria-hidden="true">
@@ -79,7 +81,7 @@ export default function ActivateSettingsScreen({ onClose, onDone }) {
               <span className="esim-radar__orbit" />
               <span className="esim-radar__core" />
             </div>
-            <p className="esim-config-title">Configuring eSIM</p>
+            <p className="esim-config-title">{t.activateSettings.configuring}</p>
             <p className="esim-config-phase">{PHASES[phaseIndex]}</p>
             <div className="esim-config-track" aria-hidden="true">
               {PHASES.map((_, i) => (

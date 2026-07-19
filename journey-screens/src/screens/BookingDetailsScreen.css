@@ -125,6 +125,10 @@
   color: var(--icon-secondary-default);
 }
 
+[dir='rtl'] .bd-card__chevron {
+  transform: scaleX(-1);
+}
+
 .bd-card__details {
   display: flex;
   flex-direction: column;
@@ -422,7 +426,9 @@
   flex-direction: column;
   gap: var(--space-xs);
   width: 100%;
-  padding: 0 104px 0 var(--space);
+  padding-block: 0;
+  padding-inline-end: 104px;
+  padding-inline-start: var(--space);
 }
 
 .ec-progress__track {

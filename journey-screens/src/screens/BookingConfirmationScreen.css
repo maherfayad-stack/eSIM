@@ -124,7 +124,7 @@
 .bc-card__tag {
   position: absolute;
   top: -14px;
-  left: var(--space-md);
+  inset-inline-start: var(--space-md);
   display: inline-flex;
   align-items: center;
   height: 24px;

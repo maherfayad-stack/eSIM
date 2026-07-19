@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { DesignSystemProvider } from 'design-system'
 import BookingConfirmationScreen from './screens/BookingConfirmationScreen'
 import HomepageScreen from './screens/HomepageScreen'
 import BookingDetailsScreen from './screens/BookingDetailsScreen'
@@ -10,6 +11,7 @@ import CanvasPanel from './components/CanvasPanel'
 import SettingsSheet from './components/SettingsSheet'
 import useIsMobile from './hooks/useIsMobile'
 import useSettingsGesture from './hooks/useSettingsGesture'
+import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
 import './App.css'
 
 const SCREENS = [
@@ -19,6 +21,15 @@ const SCREENS = [
 ]
 
 export default function App() {
+  return (
+    <LanguageProvider>
+      <AppShell />
+    </LanguageProvider>
+  )
+}
+
+function AppShell() {
+  const { lang, dir, toggleLang } = useLanguage()
   const [active, setActive] = useState(SCREENS[0].key)
   const [isDark, setIsDark] = useState(false)
   const [view, setView] = useState('flow') // 'flow' | 'canvas'
@@ -35,6 +46,11 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
   }, [isDark])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('dir', dir)
+    document.documentElement.setAttribute('lang', lang)
+  }, [dir, lang])
 
   const jumpTo = useCallback((key) => {
     setActive(key)
@@ -115,6 +131,8 @@ export default function App() {
       onClose={closeSheet}
       isDark={isDark}
       onThemeChange={setIsDark}
+      lang={lang}
+      onLangChange={(next) => next !== lang && toggleLang()}
       screens={SCREENS}
       active={active}
       onJumpTo={jumpTo}
@@ -123,6 +141,7 @@ export default function App() {
 
   if (isMobile) {
     return (
+      <DesignSystemProvider dir={dir}>
       <div className="esim-app esim-app--mobile">
         <div
           className="esim-mobile"
@@ -146,10 +165,12 @@ export default function App() {
 
         {settingsSheet}
       </div>
+      </DesignSystemProvider>
     )
   }
 
   return (
+    <DesignSystemProvider dir={dir}>
     <div className="esim-app">
       <header className="esim-bar">
         <div className="esim-bar__left">
@@ -159,6 +180,10 @@ export default function App() {
         </div>
 
         <div className="esim-bar__right">
+          <button type="button" className="esim-lang-btn" onClick={toggleLang} title="Switch language">
+            {lang === 'en' ? 'AR' : 'EN'}
+          </button>
+
           <button type="button" className="esim-icon-btn" onClick={() => setIsDark((d) => !d)} title="Toggle theme">
             {isDark ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -229,5 +254,6 @@ export default function App() {
 
       {settingsSheet}
     </div>
+    </DesignSystemProvider>
   )
 }

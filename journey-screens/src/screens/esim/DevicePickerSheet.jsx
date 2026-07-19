@@ -1,15 +1,17 @@
 import { ActionSheet } from 'design-system'
+import { useLanguage } from '../../i18n/LanguageContext'
 import './DevicePickerSheet.css'
 
 export default function DevicePickerSheet({ onThisDevice, onAnotherDevice, onClose }) {
+  const { t } = useLanguage()
   return (
     <div className="esim-device-picker">
       <ActionSheet
         platform="ios"
-        title="Where do you want to Install this eSIM?"
+        title={t.devicePicker.title}
         actions={[
-          { label: 'This device', onClick: onThisDevice },
-          { label: 'Another device', onClick: onAnotherDevice },
+          { label: t.devicePicker.thisDevice, onClick: onThisDevice },
+          { label: t.devicePicker.anotherDevice, onClick: onAnotherDevice },
         ]}
         onClose={onClose}
       />

@@ -79,6 +79,29 @@
   color: var(--color-aqua-100);
 }
 
+.esim-lang-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 32px;
+  padding: 0 var(--space-md);
+  border-radius: var(--rounded-sm);
+  border: 1px solid var(--border-base-default);
+  background: var(--background-base-subtle);
+  color: var(--text-base-default);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.esim-lang-btn:hover {
+  background: var(--background-base-hover);
+}
+
 /* ── page tabs row ── */
 .esim-page-tabs {
   flex-shrink: 0;

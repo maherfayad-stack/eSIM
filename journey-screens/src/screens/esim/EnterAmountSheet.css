@@ -71,7 +71,7 @@
 
 .amount-sheet__close {
   position: absolute;
-  left: var(--space);
+  inset-inline-start: var(--space);
   border: none;
   background: none;
   padding: 0;

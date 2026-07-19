@@ -2,7 +2,7 @@ import { BottomSheet, SegmentedControl, ListItem } from 'design-system'
 import SectionTitle from './SectionTitle'
 import './SettingsSheet.css'
 
-export default function SettingsSheet({ open, onClose, isDark, onThemeChange, screens, active, onJumpTo }) {
+export default function SettingsSheet({ open, onClose, isDark, onThemeChange, lang, onLangChange, screens, active, onJumpTo }) {
   return (
     <BottomSheet
       className="settings-sheet"
@@ -20,6 +20,15 @@ export default function SettingsSheet({ open, onClose, isDark, onThemeChange, sc
             items={['Light', 'Dark']}
             value={isDark ? 1 : 0}
             onChange={(index) => onThemeChange(index === 1)}
+          />
+        </div>
+
+        <div className="settings-sheet__section">
+          <SectionTitle title="Language" size="compact" />
+          <SegmentedControl
+            items={['EN', 'AR']}
+            value={lang === 'ar' ? 1 : 0}
+            onChange={(index) => onLangChange(index === 1 ? 'ar' : 'en')}
           />
         </div>
 

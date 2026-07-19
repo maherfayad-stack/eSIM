@@ -287,7 +287,7 @@
   align-self: flex-start;
   width: 1px;
   height: 12px;
-  margin-left: 36px;
+  margin-inline-start: 36px;
   background: var(--border-base-default);
 }
 
@@ -426,6 +426,10 @@
   color: var(--icon-secondary-default);
 }
 
+[dir='rtl'] .hp-thread-card__chevron {
+  transform: scaleX(-1);
+}
+
 /* ── enhance your trip ── */
 
 .hp-enhance__label {
@@ -484,6 +488,10 @@
 .hp-enhance__chevron {
   flex-shrink: 0;
   color: var(--icon-secondary-default);
+}
+
+[dir='rtl'] .hp-enhance__chevron {
+  transform: scaleX(-1);
 }
 
 /* ── special deals grid ── */

@@ -14,17 +14,26 @@ import creditCardSvg from 'design-system/src/icons/line-icons/creditCard.svg?raw
 import questionCircleSvg from '../assets/icons/questionCircle.svg?raw'
 import headsetSvg from 'design-system/src/icons/line-icons/headset.svg?raw'
 import esimChip from '../assets/esim-flow/figma/esim-chip.png'
+import { useLanguage } from '../i18n/LanguageContext'
 import './BookingConfirmationScreen.css'
 
 const ADD_ONS = [
-  { key: 'esim', image: esimChip, title: 'eSIM', subtext: 'you still need to activate to be able to use' },
-  { key: 'checkin', icon: addonSmartCheckInSvg, title: 'Auto Check-in' },
-  { key: 'baggage', icon: addonBaggageProtectionSvg, title: 'Baggage Protection' },
+  { key: 'esim', image: esimChip },
+  { key: 'checkin', icon: addonSmartCheckInSvg },
+  { key: 'baggage', icon: addonBaggageProtectionSvg },
 ]
 
 export default function BookingConfirmationScreen({ onClose }) {
+  const { t } = useLanguage()
+  const c = t.bookingConfirmation
+  const addonCopy = {
+    esim: { title: t.common.esimLabel, subtext: c.esimSubtext },
+    checkin: { title: c.autoCheckIn },
+    baggage: { title: c.baggageProtection },
+  }
+
   return (
-    <SheetShell title="Booking confirmed" onClose={onClose} className="booking-confirmation">
+    <SheetShell title={c.title} onClose={onClose} className="booking-confirmation">
       <div className="booking-confirmation__scroll">
       <div className="booking-confirmation__body">
         <section className="bc-success">
@@ -42,33 +51,33 @@ export default function BookingConfirmationScreen({ onClose }) {
             </div>
           </div>
           <div className="bc-success__text">
-            <p className="bc-success__title">Your booking is confirmed</p>
-            <p className="bc-success__subtitle">Round-trip | RUH to CAI | Feb - 10 Feb</p>
+            <p className="bc-success__title">{c.heading}</p>
+            <p className="bc-success__subtitle">{c.subtitle}</p>
           </div>
-          <Button variant="primary-inverted" size="small" label="Booking details" />
+          <Button variant="primary-inverted" size="small" label={c.bookingDetails} />
         </section>
 
         <section className="bc-section">
-          <SectionTitle title="Complete your trip" />
+          <SectionTitle title={c.completeYourTrip} />
 
           <div className="bc-cards">
             <div className="bc-card">
-              <span className="bc-card__tag">Exclusive rates on hotels</span>
+              <span className="bc-card__tag">{c.hotelsTag}</span>
               <div className="bc-card__row">
                 <div className="bc-card__icon">
                   <Icon svg={productHotelSvg} size={40} />
                 </div>
                 <div className="bc-card__text">
-                  <p className="bc-card__title">Enjoy 12% discount on hotels</p>
-                  <p className="bc-card__subtitle">Special hotel deals with your flight booking.</p>
+                  <p className="bc-card__title">{c.hotelsTitle}</p>
+                  <p className="bc-card__subtitle">{c.hotelsSubtitle}</p>
                 </div>
               </div>
               <Separator />
               <div className="bc-card__footer">
                 <p className="bc-card__code">
-                  Use code: <strong>CSSTAY12</strong>
+                  {c.useCode}: <strong>CSSTAY12</strong>
                 </p>
-                <Button variant="primary-inverted" size="small" label="View hotels" />
+                <Button variant="primary-inverted" size="small" label={c.viewHotels} />
               </div>
             </div>
 
@@ -78,9 +87,9 @@ export default function BookingConfirmationScreen({ onClose }) {
                   <Icon svg={addonAirportTransferSvg} size={56} />
                 </div>
                 <div className="bc-card__text">
-                  <p className="bc-card__title">Skip the Taxi Queue</p>
+                  <p className="bc-card__title">{c.taxiTitle}</p>
                   <p className="bc-card__subtitle">
-                    Your professional driver will be waiting at arrivals to take you straight to your door.
+                    {c.taxiSubtitle}
                   </p>
                 </div>
               </div>
@@ -88,16 +97,16 @@ export default function BookingConfirmationScreen({ onClose }) {
               <div className="bc-card__footer">
                 <div className="bc-card__price">
                   <Price value="69" color="var(--text-base-default)" />
-                  <span className="bc-card__price-label">For all travellers</span>
+                  <span className="bc-card__price-label">{c.forAllTravellers}</span>
                 </div>
-                <Button variant="primary-inverted" size="small" label="Reserve now" />
+                <Button variant="primary-inverted" size="small" label={c.reserveNow} />
               </div>
             </div>
           </div>
         </section>
 
         <section className="bc-section">
-          <SectionTitle title="Purchased Add-ons" />
+          <SectionTitle title={c.purchasedAddons} />
           <div className="bc-addons">
             {ADD_ONS.map((addOn, i) => (
               <div key={addOn.key}>
@@ -110,8 +119,10 @@ export default function BookingConfirmationScreen({ onClose }) {
                     )}
                   </div>
                   <div className="bc-addons__text">
-                    <p className="bc-addons__title">{addOn.title}</p>
-                    {addOn.subtext && <p className="bc-addons__subtext">{addOn.subtext}</p>}
+                    <p className="bc-addons__title">{addonCopy[addOn.key].title}</p>
+                    {addonCopy[addOn.key].subtext && (
+                      <p className="bc-addons__subtext">{addonCopy[addOn.key].subtext}</p>
+                    )}
                   </div>
                   <Icon svg={checkSvg} size={24} className="bc-addons__check" />
                 </div>
@@ -122,44 +133,44 @@ export default function BookingConfirmationScreen({ onClose }) {
         </section>
 
         <section className="bc-section">
-          <SectionTitle title="Rewards" />
+          <SectionTitle title={c.rewards} />
           <div className="bc-rewards">
             <Cell
               visual="icon"
               icon={<Icon svg={rewardCardSvg} size={24} />}
-              label="15,000 Mokafa'a points"
-              subtext="Mobile number: +966 55 666 7777"
+              label={c.mokafaaPoints}
+              subtext={c.mobileNumber}
               trailing="chevron"
               showSeparator={false}
             />
             <Separator />
             <p className="bc-rewards__note">
-              Your points will be rewarded 14 days after your departure or check-in date.
+              {c.rewardsNote}
             </p>
           </div>
         </section>
 
         <section className="bc-section">
-          <SectionTitle title="More information" />
+          <SectionTitle title={t.common.moreInformation} />
           <div className="bc-more">
             <Cell
               visual="icon"
               icon={<Icon svg={creditCardSvg} size={24} />}
-              label="Payment details"
-              subtext="Total: SAR 1,500 (incl. VAT)"
+              label={c.paymentDetails}
+              subtext={c.paymentTotal}
               trailing="chevron"
             />
             <Cell
               visual="icon"
               icon={<Icon svg={questionCircleSvg} size={24} />}
-              label="Frequently Asked Questions (FAQs)"
-              subtext="Browse through on popular help topics"
+              label={t.common.faqTitle}
+              subtext={t.common.faqSubtext}
               trailing="chevron"
             />
             <Cell
               visual="icon"
               icon={<Icon svg={headsetSvg} size={24} />}
-              label="Need help"
+              label={t.common.needHelp}
               trailing="chevron"
               showSeparator={false}
             />

@@ -2,15 +2,17 @@ import { useState } from 'react'
 import StaticScreenshotScreen from './StaticScreenshotScreen'
 import EsimSuccessScreen from './EsimSuccessScreen'
 import paymentPage from '../../assets/esim-flow/payment page.png'
+import { useLanguage } from '../../i18n/LanguageContext'
 
 export default function TopupFlowScreen({ onExit }) {
+  const { t } = useLanguage()
   const [step, setStep] = useState('payment') // 'payment' | 'success'
 
   if (step === 'payment') {
     return (
       <StaticScreenshotScreen
         src={paymentPage}
-        alt="Confirm and Pay"
+        alt={t.topup.paymentAlt}
         onClick={() => setStep('success')}
       />
     )
@@ -18,8 +20,8 @@ export default function TopupFlowScreen({ onExit }) {
 
   return (
     <EsimSuccessScreen
-      heading="Funds added to your eSIM successfully"
-      detail="1GB | 30 Days"
+      heading={t.esimSuccess.topupHeading}
+      detail={t.esimSuccess.topupDetail}
       onClose={onExit}
       onAddonDetails={onExit}
     />
