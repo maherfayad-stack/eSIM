@@ -4,6 +4,11 @@
 # Build output
 **/dist
 **/dist-ssr
+!vendor/design-system/dist
+
+# Live dev clone of tajawal/design-system (private, not tracked here —
+# see vendor/design-system for the committed snapshot used by the build)
+/design-system
 
 # Logs
 **/*.log

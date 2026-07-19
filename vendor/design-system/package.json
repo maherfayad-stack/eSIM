@@ -1,0 +1,58 @@
+{
+  "name": "design-system",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./dist/index.css": "./dist/index.css",
+    "./src/icons/*": "./src/icons/*"
+  },
+  "bin": {
+    "design-system-mcp": "mcp/server.js"
+  },
+  "files": [
+    "dist",
+    "src/icons",
+    "src/index.js",
+    "src/tokens/tokens.js",
+    "mcp",
+    "CLAUDE.md",
+    "design.md",
+    ".claude/commands"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "docs": "cd docs && npm run dev",
+    "docs:install": "cd docs && npm install",
+    "cc:check": "figma connect publish --dry-run",
+    "cc:publish": "figma connect publish",
+    "cc:unpublish": "figma connect unpublish",
+    "mcp": "node mcp/server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.25.0"
+  },
+  "peerDependencies": {
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@figma/code-connect": "^1.4.7",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.5.0",
+    "vite": "^8.0.10"
+  }
+}
