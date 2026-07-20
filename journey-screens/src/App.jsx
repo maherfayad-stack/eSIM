@@ -46,6 +46,9 @@ function AppShell() {
   // Demo-only visual variant for the "purchased add-ons" topup cards — control lives
   // only in the settings sheet, not duplicated as a floating/chrome-level tab.
   const [esimCardStyle, setEsimCardStyle] = useState(0)
+  // Demo-only visual variant for the install/topup banners — control lives in the
+  // settings sheet (mobile) and the desktop top nav, not the mobile floating action row.
+  const [bannerStyle, setBannerStyle] = useState(0)
   const current = SCREENS.find((s) => s.key === active)
   const isMobile = useIsMobile()
   const showEsimDemoTabs = (active === 'homepage' || active === 'booking-details') && !flow
@@ -108,7 +111,7 @@ function AppShell() {
   } else {
     Screen = current.Component
     if (active === 'homepage') {
-      screenProps = { onViewEsims: goToEsims, onTopup: goToEsims, esimTab: esimDemoTab }
+      screenProps = { onViewEsims: goToEsims, onTopup: goToEsims, esimTab: esimDemoTab, bannerStyle }
     } else if (active === 'booking-details') {
       screenProps = {
         onClose: () => {},
@@ -118,6 +121,7 @@ function AppShell() {
         onScrolled: consumeScrollSignal,
         esimTab: esimDemoTab,
         esimCardStyle,
+        bannerStyle,
       }
     }
 
@@ -143,6 +147,15 @@ function AppShell() {
     />
   ) : null
 
+  const bannerStyleControl = showEsimDemoTabs ? (
+    <SegmentedControl
+      items={['Default', 'Tint', 'Row']}
+      value={bannerStyle}
+      onChange={setBannerStyle}
+      className="esim-demo-tabs esim-banner-style-tabs"
+    />
+  ) : null
+
   const settingsSheet = (
     <SettingsSheet
       open={sheetOpen}
@@ -158,6 +171,8 @@ function AppShell() {
       onEsimTabChange={setEsimDemoTab}
       esimCardStyle={esimCardStyle}
       onEsimCardStyleChange={setEsimCardStyle}
+      bannerStyle={bannerStyle}
+      onBannerStyleChange={setBannerStyle}
     />
   )
 
@@ -257,7 +272,10 @@ function AppShell() {
       )}
 
       {view !== 'canvas' && esimDemoTabs && (
-        <div className="esim-demo-tabs-row">{esimDemoTabs}</div>
+        <div className="esim-demo-tabs-row">
+          {esimDemoTabs}
+          {bannerStyleControl}
+        </div>
       )}
 
       {view === 'canvas' ? (

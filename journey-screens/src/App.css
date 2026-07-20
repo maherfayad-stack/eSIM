@@ -142,6 +142,8 @@
 .esim-demo-tabs-row {
   flex-shrink: 0;
   display: flex;
+  align-items: center;
+  gap: var(--space);
   background: var(--background-base-subtle);
   border-bottom: 1px solid var(--border-base-default);
   padding: var(--space-sm) 20px;
@@ -149,6 +151,10 @@
 
 .esim-demo-tabs {
   width: 220px;
+}
+
+.esim-banner-style-tabs {
+  width: 260px;
 }
 
 /* ── stage — centers the phone frame ── */

@@ -58,8 +58,11 @@ const DEALS = [
   { key: 'deal4', image: dealCard4, code: 'TRANSFER' },
 ]
 
-export default function HomepageScreen({ onViewEsims, onTopup, esimTab = 0 }) {
+const BANNER_VARIANTS = ['layered', 'tint', 'row']
+
+export default function HomepageScreen({ onViewEsims, onTopup, esimTab = 0, bannerStyle = 0 }) {
   const { t } = useLanguage()
+  const bannerVariant = BANNER_VARIANTS[bannerStyle] ?? 'layered'
 
   const productLabels = { flights: t.homepage.flights, stays: t.homepage.stays, activities: t.homepage.activities }
   const quickLinkLabels = {
@@ -131,6 +134,7 @@ export default function HomepageScreen({ onViewEsims, onTopup, esimTab = 0 }) {
         <div className="homepage__body">
           {esimTab === 0 ? (
             <EsimStatusBanner
+              variant={bannerVariant}
               tone="install"
               icon={esimChip}
               title={t.homepage.esimBannerTitle}
@@ -143,6 +147,7 @@ export default function HomepageScreen({ onViewEsims, onTopup, esimTab = 0 }) {
             />
           ) : (
             <EsimStatusBanner
+              variant={bannerVariant}
               tone="lowdata"
               icon={esimChip}
               title={t.homepage.esimLowBannerTitle}

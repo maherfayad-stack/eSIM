@@ -16,6 +16,8 @@ export default function SettingsSheet({
   onEsimTabChange,
   esimCardStyle,
   onEsimCardStyleChange,
+  bannerStyle,
+  onBannerStyleChange,
 }) {
   return (
     <BottomSheet
@@ -52,6 +54,15 @@ export default function SettingsSheet({
             items={['Install', 'Topup']}
             value={esimTab}
             onChange={onEsimTabChange}
+          />
+        </div>
+
+        <div className="settings-sheet__section">
+          <SectionTitle title="Banner style" size="compact" />
+          <SegmentedControl
+            items={['Default', 'Tint', 'Row']}
+            value={bannerStyle}
+            onChange={onBannerStyleChange}
           />
         </div>
 

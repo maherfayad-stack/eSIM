@@ -169,6 +169,8 @@ const TOPUP_CARDS = [
   { percent: 65, gbLeft: 4, daysLeft: 18, buttonVariant: 'primary-inverted' },
 ]
 
+const BANNER_VARIANTS = ['layered', 'tint', 'row']
+
 export default function BookingDetailsScreen({
   onClose,
   onInstall,
@@ -177,8 +179,10 @@ export default function BookingDetailsScreen({
   onScrolled,
   esimTab = 0,
   esimCardStyle = 0,
+  bannerStyle = 0,
 }) {
   const { t } = useLanguage()
+  const bannerVariant = BANNER_VARIANTS[bannerStyle] ?? 'layered'
   const d = t.bookingDetails
   const scrollRef = useRef(null)
   const esimSectionRef = useRef(null)
@@ -203,6 +207,7 @@ export default function BookingDetailsScreen({
       <div className="booking-details__body">
         {esimTab === 0 ? (
           <EsimStatusBanner
+            variant={bannerVariant}
             tone="install"
             icon={esimChip}
             title={d.bannerTitle}
@@ -215,6 +220,7 @@ export default function BookingDetailsScreen({
           />
         ) : (
           <EsimStatusBanner
+            variant={bannerVariant}
             tone="lowdata"
             icon={esimChip}
             title={d.lowBannerTitle}
