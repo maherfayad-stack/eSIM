@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import ActivateIntroScreen from './ActivateIntroScreen'
+import OnboardingCarouselScreen from './OnboardingCarouselScreen'
 import ActivateSettingsScreen from './ActivateSettingsScreen'
 import QrCodeScreen from './QrCodeScreen'
 import EsimSuccessScreen from './EsimSuccessScreen'
 import { useLanguage } from '../../i18n/LanguageContext'
 
-export default function ActivationFlowScreen({ onExit, initialStep = 'intro' }) {
+export default function ActivationFlowScreen({ onExit, initialStep = 'intro', introVariant = 'checklist' }) {
   const { t } = useLanguage()
   const [step, setStep] = useState(initialStep) // 'intro' | 'settings' | 'qr' | 'success'
 
   return (
     <>
-      {step === 'intro' && (
+      {step === 'intro' && introVariant === 'onboarding' && (
+        <OnboardingCarouselScreen onClose={onExit} onInstall={() => setStep('settings')} />
+      )}
+      {step === 'intro' && introVariant !== 'onboarding' && (
         <ActivateIntroScreen onClose={onExit} onInstall={() => setStep('settings')} />
       )}
       {step === 'settings' && (

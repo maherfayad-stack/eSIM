@@ -59,6 +59,16 @@ function AppShell() {
     const b = getUrlParam('banner')
     return b === 'tint' ? 1 : b === 'row' ? 2 : 0
   })
+  // Demo-only toggle for the "install" entry point — 0 keeps the existing
+  // checklist intro, 1 swaps in the animated 3-slide onboarding carousel.
+  // Real-world behavior: the carousel is a one-time tutorial, so it only
+  // shows the very first time "This device" is picked after the toggle is
+  // turned on; every install after that falls back to the checklist. Flipping
+  // the toggle off and back on re-arms it, which doubles as a "replay" control
+  // for demoing it more than once.
+  const [introStyle, setIntroStyle] = useState(() => (getUrlParam('intro') === 'onboarding' ? 1 : 0))
+  const [onboardingSeen, setOnboardingSeen] = useState(false)
+  const [activateIntroVariant, setActivateIntroVariant] = useState('checklist')
   const current = SCREENS.find((s) => s.key === active)
   const isMobile = useIsMobile()
   const showEsimDemoTabs = (active === 'homepage' || active === 'booking-details') && !flow
@@ -75,8 +85,9 @@ function AppShell() {
       esim: esimDemoTab === 1 ? 'topup' : 'install',
       banner: bannerStyle === 1 ? 'tint' : bannerStyle === 2 ? 'row' : 'default',
       card: esimCardStyle === 1 ? 'stat' : esimCardStyle === 2 ? 'gauge' : 'ring',
+      intro: introStyle === 1 ? 'onboarding' : 'default',
     })
-  }, [active, lang, isDark, esimDemoTab, bannerStyle, esimCardStyle])
+  }, [active, lang, isDark, esimDemoTab, bannerStyle, esimCardStyle, introStyle])
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
@@ -113,6 +124,14 @@ function AppShell() {
     setPopup(null)
     setActivateStep('intro')
     setFlow('activate')
+    const showOnboarding = introStyle === 1 && !onboardingSeen
+    setActivateIntroVariant(showOnboarding ? 'onboarding' : 'checklist')
+    if (showOnboarding) setOnboardingSeen(true)
+  }, [introStyle, onboardingSeen])
+
+  const handleIntroStyleChange = useCallback((next) => {
+    setIntroStyle(next)
+    setOnboardingSeen(false)
   }, [])
   const onAnotherDevice = useCallback(() => {
     setPopup(null)
@@ -129,7 +148,7 @@ function AppShell() {
   let popupNode = null
   if (flow === 'activate') {
     Screen = ActivationFlowScreen
-    screenProps = { onExit: closeFlow, initialStep: activateStep }
+    screenProps = { onExit: closeFlow, initialStep: activateStep, introVariant: activateIntroVariant }
   } else if (flow === 'topup') {
     Screen = TopupFlowScreen
     screenProps = { onExit: closeFlow }
@@ -207,6 +226,8 @@ function AppShell() {
       onEsimCardStyleChange={setEsimCardStyle}
       bannerStyle={bannerStyle}
       onBannerStyleChange={setBannerStyle}
+      introStyle={introStyle}
+      onIntroStyleChange={handleIntroStyleChange}
     />
   )
 
@@ -282,6 +303,15 @@ function AppShell() {
             onClick={() => setView((v) => (v === 'canvas' ? 'flow' : 'canvas'))}
           >
             Canvas
+          </button>
+
+          <button
+            type="button"
+            className={['esim-icon-btn', 'esim-canvas-btn', introStyle === 1 ? 'esim-canvas-btn--active' : ''].filter(Boolean).join(' ')}
+            onClick={() => handleIntroStyleChange(introStyle === 1 ? 0 : 1)}
+            title="Toggle the animated onboarding intro (one-time on first install)"
+          >
+            New intro
           </button>
         </div>
       </header>

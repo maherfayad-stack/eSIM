@@ -177,6 +177,24 @@ export const translations = {
       heading: 'Install your eSIM in just a few steps',
       installEsim: 'Install eSIM',
     },
+    onboardingIntro: {
+      next: 'Next',
+      installNow: 'Install Now',
+      slides: [
+        {
+          heading: 'No SIM to swap',
+          desc: 'Your eSIM lives inside your phone. No physical SIM card is provided.',
+        },
+        {
+          heading: 'Internet Needed',
+          desc: 'Connect to Wi-Fi or data to install it before you travel.',
+        },
+        {
+          heading: 'Starts on travel day',
+          desc: 'Install anytime, your package only starts counting from the day you travel.',
+        },
+      ],
+    },
     activateSettings: {
       stepLabel: 'Step 2 of 3 · Install',
       heading: 'Install from settings',
@@ -332,6 +350,24 @@ export const translations = {
       stepLabel: 'الخطوة 1 من 3 · التحضير',
       heading: 'فعّل شريحتك الإلكترونية في خطوات بسيطة',
       installEsim: 'تثبيت الشريحة',
+    },
+    onboardingIntro: {
+      next: 'التالي',
+      installNow: 'ثبّت الآن',
+      slides: [
+        {
+          heading: 'لا حاجة لاستبدال الشريحة',
+          desc: 'شريحتك الإلكترونية داخل هاتفك، دون الحاجة إلى شريحة مادية.',
+        },
+        {
+          heading: 'الاتصال بالإنترنت مطلوب',
+          desc: 'اتصل بشبكة واي فاي أو بيانات الجوال لتثبيتها قبل السفر.',
+        },
+        {
+          heading: 'تبدأ يوم السفر',
+          desc: 'ثبّتها في أي وقت، فباقتك تبدأ من يوم سفرك فقط.',
+        },
+      ],
     },
     activateSettings: {
       stepLabel: 'الخطوة 2 من 3 · التثبيت',

@@ -18,6 +18,8 @@ export default function SettingsSheet({
   onEsimCardStyleChange,
   bannerStyle,
   onBannerStyleChange,
+  introStyle,
+  onIntroStyleChange,
 }) {
   return (
     <BottomSheet
@@ -72,6 +74,15 @@ export default function SettingsSheet({
             items={['Ring', 'Stat', 'Gauge']}
             value={esimCardStyle}
             onChange={onEsimCardStyleChange}
+          />
+        </div>
+
+        <div className="settings-sheet__section">
+          <SectionTitle title="Install intro style" size="compact" />
+          <SegmentedControl
+            items={['Default', 'Onboarding']}
+            value={introStyle}
+            onChange={onIntroStyleChange}
           />
         </div>
 
