@@ -1,10 +1,11 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { translations } from './translations'
+import { getUrlParam } from '../urlState'
 
 const LanguageContext = createContext(null)
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState('en')
+  const [lang, setLang] = useState(() => (getUrlParam('lang') === 'ar' ? 'ar' : 'en'))
 
   const toggleLang = useCallback(() => {
     setLang((l) => (l === 'en' ? 'ar' : 'en'))

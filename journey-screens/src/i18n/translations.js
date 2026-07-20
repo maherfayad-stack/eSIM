@@ -203,7 +203,7 @@ export const translations = {
       activateDetail: '1 GB | 30 days',
       topupHeading: 'Funds added to your eSIM successfully',
       topupDetail: '1 GB | 30 days',
-      primaryAction: 'Add-on details',
+      primaryAction: 'Booking details',
     },
     qrCode: {
       caption: 'Open your camera on the other device and point it at this code',

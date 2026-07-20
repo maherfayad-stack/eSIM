@@ -12,6 +12,7 @@ import SettingsSheet from './components/SettingsSheet'
 import useIsMobile from './hooks/useIsMobile'
 import useSettingsGesture from './hooks/useSettingsGesture'
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
+import { getUrlParam, setUrlParams } from './urlState'
 import './App.css'
 
 const SCREENS = [
@@ -30,8 +31,11 @@ export default function App() {
 
 function AppShell() {
   const { lang, dir, toggleLang, t } = useLanguage()
-  const [active, setActive] = useState(SCREENS[0].key)
-  const [isDark, setIsDark] = useState(false)
+  const [active, setActive] = useState(() => {
+    const p = getUrlParam('page')
+    return SCREENS.some((s) => s.key === p) ? p : SCREENS[0].key
+  })
+  const [isDark, setIsDark] = useState(() => getUrlParam('theme') === 'dark')
   const [view, setView] = useState('flow') // 'flow' | 'canvas'
   const [sheetOpen, setSheetOpen] = useState(false)
   // Action-sheet style popups that sit on top of the current tab's screen.
@@ -42,16 +46,37 @@ function AppShell() {
   const [esimScrollTick, setEsimScrollTick] = useState(0)
   // Demo-only state switcher for the eSIM install/topup card states — shared
   // across Home page and Booking details so navigating between them stays coherent.
-  const [esimDemoTab, setEsimDemoTab] = useState(0)
+  const [esimDemoTab, setEsimDemoTab] = useState(() => (getUrlParam('esim') === 'topup' ? 1 : 0))
   // Demo-only visual variant for the "purchased add-ons" topup cards — control lives
-  // only in the settings sheet, not duplicated as a floating/chrome-level tab.
-  const [esimCardStyle, setEsimCardStyle] = useState(0)
+  // in the settings sheet (mobile) and the desktop top nav (booking details only).
+  const [esimCardStyle, setEsimCardStyle] = useState(() => {
+    const c = getUrlParam('card')
+    return c === 'stat' ? 1 : c === 'gauge' ? 2 : 0
+  })
   // Demo-only visual variant for the install/topup banners — control lives in the
   // settings sheet (mobile) and the desktop top nav, not the mobile floating action row.
-  const [bannerStyle, setBannerStyle] = useState(0)
+  const [bannerStyle, setBannerStyle] = useState(() => {
+    const b = getUrlParam('banner')
+    return b === 'tint' ? 1 : b === 'row' ? 2 : 0
+  })
   const current = SCREENS.find((s) => s.key === active)
   const isMobile = useIsMobile()
   const showEsimDemoTabs = (active === 'homepage' || active === 'booking-details') && !flow
+  const showCardStyleControl = active === 'booking-details' && !flow
+
+  // Keep the URL query string in sync with the demo state so the current page,
+  // language, theme, and chosen variants are all shareable/bookmarkable, and
+  // survive a reload.
+  useEffect(() => {
+    setUrlParams({
+      page: active,
+      lang,
+      theme: isDark ? 'dark' : 'light',
+      esim: esimDemoTab === 1 ? 'topup' : 'install',
+      banner: bannerStyle === 1 ? 'tint' : bannerStyle === 2 ? 'row' : 'default',
+      card: esimCardStyle === 1 ? 'stat' : esimCardStyle === 2 ? 'gauge' : 'ring',
+    })
+  }, [active, lang, isDark, esimDemoTab, bannerStyle, esimCardStyle])
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light')
@@ -153,6 +178,15 @@ function AppShell() {
       value={bannerStyle}
       onChange={setBannerStyle}
       className="esim-demo-tabs esim-banner-style-tabs"
+    />
+  ) : null
+
+  const cardStyleControl = showCardStyleControl ? (
+    <SegmentedControl
+      items={['Ring', 'Stat', 'Gauge']}
+      value={esimCardStyle}
+      onChange={setEsimCardStyle}
+      className="esim-demo-tabs esim-card-style-tabs"
     />
   ) : null
 
@@ -275,6 +309,7 @@ function AppShell() {
         <div className="esim-demo-tabs-row">
           {esimDemoTabs}
           {bannerStyleControl}
+          {cardStyleControl}
         </div>
       )}
 

@@ -157,6 +157,10 @@
   width: 260px;
 }
 
+.esim-card-style-tabs {
+  width: 260px;
+}
+
 /* ── stage — centers the phone frame ── */
 .esim-stage {
   flex: 1;
