@@ -1,4 +1,4 @@
-import { BottomSheet, SegmentedControl, ListItem } from 'design-system'
+import { BottomSheet, SegmentedControl, ListItem } from '@tajawal/design-system'
 import SectionTitle from './SectionTitle'
 import './SettingsSheet.css'
 

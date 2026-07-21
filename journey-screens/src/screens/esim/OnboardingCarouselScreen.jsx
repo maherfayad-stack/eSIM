@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button } from 'design-system'
+import { Button } from '@tajawal/design-system'
 import SheetShell from '../../components/SheetShell'
 import ProgressSignal from '../../components/ProgressSignal'
 import onboarding1 from '../../assets/esim-flow/figma/onboarding-1.png'

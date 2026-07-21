@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { DesignSystemProvider, SegmentedControl } from 'design-system'
+import { DesignSystemProvider, SegmentedControl } from '@tajawal/design-system'
 import BookingConfirmationScreen from './screens/BookingConfirmationScreen'
 import HomepageScreen from './screens/HomepageScreen'
 import BookingDetailsScreen from './screens/BookingDetailsScreen'

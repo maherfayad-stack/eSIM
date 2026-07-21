@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Chip, GlassButton, TextInput } from 'design-system'
+import { Button, Chip, GlassButton, TextInput } from '@tajawal/design-system'
 import { useLanguage } from '../../i18n/LanguageContext'
 import './EnterAmountSheet.css'
 

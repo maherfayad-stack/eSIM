@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button } from 'design-system'
+import { Button } from '@tajawal/design-system'
 import SheetShell from '../../components/SheetShell'
 import ProgressSignal from '../../components/ProgressSignal'
 import StaticScreenshotScreen from './StaticScreenshotScreen'

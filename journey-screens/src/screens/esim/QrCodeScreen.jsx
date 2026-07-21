@@ -1,4 +1,4 @@
-import { Button } from 'design-system'
+import { Button } from '@tajawal/design-system'
 import SheetShell from '../../components/SheetShell'
 import Icon from '../../components/Icon'
 import checkSvg from '../../assets/icons/check.svg?raw'
