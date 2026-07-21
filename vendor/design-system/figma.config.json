@@ -1,9 +1,0 @@
-{
-  "codeConnect": {
-    "parser": "react",
-    "include": ["src/**/*.figma.tsx", "src/components/*.jsx"],
-    "importPaths": {
-      "src/components/*": "design-system"
-    }
-  }
-}
