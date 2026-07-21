@@ -1,4 +1,4 @@
-import { Button } from '@tajawal/design-system'
+import { Button } from '@alm-design/design-system'
 import SheetShell from '../../components/SheetShell'
 import ProgressSignal from '../../components/ProgressSignal'
 import Icon from '../../components/Icon'

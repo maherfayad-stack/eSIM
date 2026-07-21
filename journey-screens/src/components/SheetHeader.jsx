@@ -1,4 +1,4 @@
-import { GlassButton } from '@tajawal/design-system'
+import { GlassButton } from '@alm-design/design-system'
 import { useLanguage } from '../i18n/LanguageContext'
 import './SheetHeader.css'
 

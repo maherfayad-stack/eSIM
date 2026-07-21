@@ -1,4 +1,4 @@
-import { ActionSheet } from '@tajawal/design-system'
+import { ActionSheet } from '@alm-design/design-system'
 import { useLanguage } from '../../i18n/LanguageContext'
 import './DevicePickerSheet.css'
 

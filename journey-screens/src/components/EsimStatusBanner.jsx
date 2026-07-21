@@ -1,4 +1,4 @@
-import { Button, ProgressStepper, LinearProgressIndicator } from '@tajawal/design-system'
+import { Button, ProgressStepper, LinearProgressIndicator } from '@alm-design/design-system'
 import './EsimStatusBanner.css'
 
 const RING_RADIUS = 17

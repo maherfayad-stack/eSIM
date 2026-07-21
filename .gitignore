@@ -7,7 +7,7 @@
 
 # Live dev clone of tajawal/design-system, if checked out here for local
 # design-system work (private, not tracked here). journey-screens itself
-# consumes the published @tajawal/design-system package, not this clone.
+# consumes the published @alm-design/design-system package, not this clone.
 /design-system
 
 # Logs
