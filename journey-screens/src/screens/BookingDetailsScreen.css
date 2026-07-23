@@ -248,6 +248,13 @@
 
 /* ── esim card ── */
 
+/* non-primary Topup action: secondary-inverted is transparent + bordered but
+   labels white-static for dark surfaces — recolor the label aqua for use on
+   this card's light background, keeping the transparent/bordered "ghost" look */
+.ec-card__topup-btn--ghost.btn--secondary-inverted {
+  color: var(--text-link-default);
+}
+
 .ec-card {
   display: flex;
   flex-direction: column;

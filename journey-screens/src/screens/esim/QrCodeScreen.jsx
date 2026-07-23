@@ -1,7 +1,8 @@
-import { Button } from '@alm-design/design-system'
+import { Button, GlassButton } from '@alm-design/design-system'
 import SheetShell from '../../components/SheetShell'
 import Icon from '../../components/Icon'
 import checkSvg from '../../assets/icons/check.svg?raw'
+import shareSvg from '@alm-design/design-system/src/icons/line-icons/share.svg?raw'
 import qrImage from '../../assets/esim-flow/activity-qr.png'
 import { useLanguage } from '../../i18n/LanguageContext'
 import './esim-shared.css'
@@ -9,11 +10,29 @@ import './QrCodeScreen.css'
 
 export default function QrCodeScreen({ onClose, onDone }) {
   const { t } = useLanguage()
+
+  const handleShare = async () => {
+    if (typeof navigator === 'undefined' || !navigator.share) return
+    try {
+      await navigator.share({ title: t.qrCode.heading, text: t.qrCode.caption })
+    } catch {
+      // user cancelled the share sheet — nothing to do
+    }
+  }
+
   return (
     <SheetShell title={t.common.esimActivationTitle} onClose={onClose} className="esim-qr">
       <div className="esim-sheet__scroll">
         <div className="esim-sheet__body">
           <div className="esim-qr__card">
+            <GlassButton
+              bg="default"
+              type="1-icon"
+              icon1={<Icon svg={shareSvg} size={24} />}
+              onClick={handleShare}
+              aria-label={t.common.share}
+              className="esim-qr__share"
+            />
             <div className="esim-qr__frame">
               <img src={qrImage} alt={t.qrCode.qrAlt} className="esim-qr__image" />
               <span className="esim-qr__corner esim-qr__corner--tl" aria-hidden="true" />

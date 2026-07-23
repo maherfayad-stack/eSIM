@@ -1,4 +1,5 @@
 .esim-qr__card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +9,19 @@
   border: 1px solid var(--border-base-default);
   border-radius: var(--rounded);
   box-sizing: border-box;
+}
+
+.esim-qr__card .esim-qr__share {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  color: var(--icon-secondary-default);
+  z-index: 1;
+}
+
+[dir='rtl'] .esim-qr__card .esim-qr__share {
+  right: auto;
+  left: 7px;
 }
 
 .esim-qr__frame {

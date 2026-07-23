@@ -69,6 +69,11 @@ function EsimAddonIcon({ type, ringPercent }) {
   return <img src={esimChip} alt="" className="ec-icon-img" />
 }
 
+function topupButtonProps(variant) {
+  if (variant === 'ghost') return { variant: 'secondary-inverted', className: 'ec-card__topup-btn--ghost' }
+  return { variant }
+}
+
 function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, onAction, icon, ringPercent }) {
   const { t } = useLanguage()
   return (
@@ -92,7 +97,7 @@ function EsimAddonCard({ subtitle, subtitleParts, buttonLabel, buttonVariant, on
             )}
           </div>
         </div>
-        <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
+        <Button {...topupButtonProps(buttonVariant)} size="small" label={buttonLabel} onClick={onAction} />
       </div>
     </div>
   )
@@ -130,7 +135,7 @@ function EsimAddonCardStat({ percent, gbLeft, daysLeft, buttonLabel, buttonVaria
             </div>
           </div>
         </div>
-        <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
+        <Button {...topupButtonProps(buttonVariant)} size="small" label={buttonLabel} onClick={onAction} />
       </div>
     </div>
   )
@@ -157,16 +162,16 @@ function EsimAddonCardGauge({ percent, gbLeft, gbTotal, daysLeft, buttonLabel, b
           <p className="ec-card-gauge__title">{t.common.esimLabel}</p>
           <p className="ec-card-gauge__subtitle">{t.common.daysLeft(daysLeft)}</p>
         </div>
-        <Button variant={buttonVariant} size="small" label={buttonLabel} onClick={onAction} />
+        <Button {...topupButtonProps(buttonVariant)} size="small" label={buttonLabel} onClick={onAction} />
       </div>
     </div>
   )
 }
 
 const TOPUP_CARDS = [
-  { percent: 99, gbLeft: 4, daysLeft: 3, buttonVariant: 'primary-inverted' },
+  { percent: 99, gbLeft: 4, daysLeft: 3, buttonVariant: 'ghost' },
   { percent: 20, gbLeft: 1, daysLeft: 3, buttonVariant: 'primary' },
-  { percent: 65, gbLeft: 4, daysLeft: 18, buttonVariant: 'primary-inverted' },
+  { percent: 65, gbLeft: 4, daysLeft: 18, buttonVariant: 'ghost' },
 ]
 
 const BANNER_VARIANTS = ['layered', 'tint', 'row']

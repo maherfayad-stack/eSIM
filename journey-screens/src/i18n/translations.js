@@ -65,6 +65,7 @@ export const translations = {
     common: {
       close: 'Close',
       copy: 'Copy',
+      share: 'Share',
       install: 'Install',
       topup: 'Topup',
       confirm: 'Confirm',
@@ -75,7 +76,7 @@ export const translations = {
       esimActivationTitle: 'eSIM Activation',
       esimLabel: 'eSIM',
       esimChecklist: [
-        'Only an eSIM, no physical SIM card is provided',
+        'Only an eSIM is provided for internet use; no physical SIM card or calls.',
         'Requires an internet connection',
         'Your package starts counting from the day you travel',
       ],
@@ -210,17 +211,21 @@ export const translations = {
       thisDevice: 'This device',
       anotherDevice: 'Another device',
     },
-    enterAmount: {
-      title: 'Enter amount',
-      amountLabel: 'Amount in SAR',
-      sarChip: (v) => `SAR ${v}`,
+    topupPackage: {
+      title: 'Choose a package',
+      dataTab: 'Data',
+      daysTab: 'Days',
+      gbLabel: (gb) => `${gb} GB`,
+      daysLabel: (days) => `+${days} Day${days === 1 ? '' : 's'}`,
+      priceLabel: (price) => `SAR ${price}`,
     },
     esimSuccess: {
       activateStepLabel: 'Step 3 of 3 · Done',
       activateHeading: 'Your eSIM is installed',
       activateDetail: '1 GB | 30 days',
-      topupHeading: 'Funds added to your eSIM successfully',
-      topupDetail: '1 GB | 30 days',
+      topupHeading: 'Your eSIM has been topped up',
+      topupDetailGb: (gb) => `${gb} GB added`,
+      topupDetailDays: (days) => `+${days} Day${days === 1 ? '' : 's'} added`,
       primaryAction: 'Booking details',
     },
     qrCode: {
@@ -239,6 +244,7 @@ export const translations = {
     common: {
       close: 'إغلاق',
       copy: 'نسخ',
+      share: 'مشاركة',
       install: 'تثبيت',
       topup: 'شحن',
       confirm: 'تأكيد',
@@ -384,17 +390,21 @@ export const translations = {
       thisDevice: 'هذا الجهاز',
       anotherDevice: 'جهاز آخر',
     },
-    enterAmount: {
-      title: 'أدخل المبلغ',
-      amountLabel: 'المبلغ بالريال',
-      sarChip: (v) => `${v} ر.س`,
+    topupPackage: {
+      title: 'اختر باقة',
+      dataTab: 'بيانات',
+      daysTab: 'أيام إضافية',
+      gbLabel: (gb) => `${gb} جيجا`,
+      daysLabel: (days) => daysPlainAr(days),
+      priceLabel: (price) => `${price} ر.س`,
     },
     esimSuccess: {
       activateStepLabel: 'الخطوة 3 من 3 · تم',
       activateHeading: 'شريحتك مثبّتة',
       activateDetail: '1 جيجا | 30 يومًا',
-      topupHeading: 'أضفنا الرصيد إلى شريحتك',
-      topupDetail: '1 جيجا | 30 يومًا',
+      topupHeading: 'تم شحن شريحتك بنجاح',
+      topupDetailGb: (gb) => `أضفنا ${gb} جيجا`,
+      topupDetailDays: (days) => `أضفنا ${daysPlainAr(days)}`,
       primaryAction: 'تفاصيل الإضافة',
     },
     qrCode: {

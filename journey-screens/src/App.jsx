@@ -6,7 +6,7 @@ import BookingDetailsScreen from './screens/BookingDetailsScreen'
 import ActivationFlowScreen from './screens/esim/ActivationFlowScreen'
 import TopupFlowScreen from './screens/esim/TopupFlowScreen'
 import DevicePickerSheet from './screens/esim/DevicePickerSheet'
-import EnterAmountSheet from './screens/esim/EnterAmountSheet'
+import SelectPackageSheet from './screens/esim/SelectPackageSheet'
 import CanvasPanel from './components/CanvasPanel'
 import SettingsSheet from './components/SettingsSheet'
 import useIsMobile from './hooks/useIsMobile'
@@ -39,11 +39,14 @@ function AppShell() {
   const [view, setView] = useState('flow') // 'flow' | 'canvas'
   const [sheetOpen, setSheetOpen] = useState(false)
   // Action-sheet style popups that sit on top of the current tab's screen.
-  const [popup, setPopup] = useState(null) // null | 'device-picker' | 'amount-sheet'
+  const [popup, setPopup] = useState(null) // null | 'device-picker' | 'package-sheet'
   // Full-screen flows that replace the current tab's screen while active.
   const [flow, setFlow] = useState(null) // null | 'activate' | 'topup'
   const [activateStep, setActivateStep] = useState('intro') // 'intro' | 'qr' — entry point once a device is chosen
   const [esimScrollTick, setEsimScrollTick] = useState(0)
+  // The GB/Days package the user picked in SelectPackageSheet, carried into
+  // TopupFlowScreen so the success screen can show what was actually bought.
+  const [topupPackage, setTopupPackage] = useState(null)
   // Demo-only state switcher for the eSIM install/topup card states — shared
   // across Home page and Booking details so navigating between them stays coherent.
   const [esimDemoTab, setEsimDemoTab] = useState(() => (getUrlParam('esim') === 'topup' ? 1 : 0))
@@ -116,7 +119,7 @@ function AppShell() {
   const consumeScrollSignal = useCallback(() => setEsimScrollTick(0), [])
 
   const openInstallPicker = useCallback(() => setPopup('device-picker'), [])
-  const openTopupSheet = useCallback(() => setPopup('amount-sheet'), [])
+  const openTopupSheet = useCallback(() => setPopup('package-sheet'), [])
   const closePopup = useCallback(() => setPopup(null), [])
   const closeFlow = useCallback(() => setFlow(null), [])
 
@@ -138,7 +141,8 @@ function AppShell() {
     setActivateStep('qr')
     setFlow('activate')
   }, [])
-  const onAmountConfirm = useCallback(() => {
+  const onPackageConfirm = useCallback((pkg) => {
+    setTopupPackage(pkg)
     setPopup(null)
     setFlow('topup')
   }, [])
@@ -151,7 +155,7 @@ function AppShell() {
     screenProps = { onExit: closeFlow, initialStep: activateStep, introVariant: activateIntroVariant }
   } else if (flow === 'topup') {
     Screen = TopupFlowScreen
-    screenProps = { onExit: closeFlow }
+    screenProps = { onExit: closeFlow, packageInfo: topupPackage }
   } else {
     Screen = current.Component
     if (active === 'homepage') {
@@ -173,8 +177,8 @@ function AppShell() {
       popupNode = (
         <DevicePickerSheet onThisDevice={onThisDevice} onAnotherDevice={onAnotherDevice} onClose={closePopup} />
       )
-    } else if (popup === 'amount-sheet') {
-      popupNode = <EnterAmountSheet onClose={closePopup} onConfirm={onAmountConfirm} />
+    } else if (popup === 'package-sheet') {
+      popupNode = <SelectPackageSheet onClose={closePopup} onConfirm={onPackageConfirm} />
     }
   }
 
